@@ -1,0 +1,21 @@
+﻿<Properties StartupConfiguration="{B9C254FD-27A8-E6A9-C0A6-E6AEB5D674D8}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/CreationScript.cs">
+    <Files>
+      <File FileName="Assets/CreationScript.cs" Line="14" Column="50" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="PlatMaker2d" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="06f53865-567d-4752-bab2-a84d88da6d7a" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
