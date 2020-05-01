@@ -1,7 +1,9 @@
 ﻿<Properties StartupConfiguration="{B9C254FD-27A8-E6A9-C0A6-E6AEB5D674D8}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/CreationScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerOp.cs">
     <Files>
-      <File FileName="Assets/CreationScript.cs" Line="14" Column="50" />
+      <File FileName="Assets/Scripts/CreationScript.cs" Line="22" Column="61" />
+      <File FileName="Assets/Scripts/PlayerOp.cs" Line="36" Column="42" />
+      <File FileName="Assets/Scripts/Movement.cs" Line="4" Column="2" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -13,7 +15,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="06f53865-567d-4752-bab2-a84d88da6d7a" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="3feaf5ba-49e3-4122-bfd9-cbffb8ffb6d6" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

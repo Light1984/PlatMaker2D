@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71e03599c487e4a23933094270edea34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  step: 30
   objects:
   - {fileID: 2238662041745886502, guid: f11a014c18ce645538c59cec7564e22a, type: 3}
   - {fileID: 3745908965996261997, guid: 22473dd18172a4a6dadd8562fc1aed86, type: 3}

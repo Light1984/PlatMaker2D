@@ -31,15 +31,25 @@ public class Movement : MonoBehaviour
 
 
         float moveH = Input.GetAxis("Horizontal");
-       rb.velocity = new Vector2(moveH * speed, rb.velocity.y);
+
+        if (isGround)
+        {
+            rb.velocity = new Vector2(moveH * speed, rb.velocity.y);
+
+            if (moveH > 0 && faceRight == false)
+                flip();
+            if (moveH < 0 && faceRight == true)
+                flip();
+        }
+        else
+        {
+            rb.velocity = new Vector2(moveH * speed/2, rb.velocity.y);
+        }
 
         if (Input.GetKeyDown(KeyCode.C) && isGround)
             rb.AddForce(new Vector2(0, jumpForce));
 
-        if (moveH > 0 && faceRight == false)
-            flip();
-       if (moveH < 0 && faceRight == true)
-            flip();
+        
     }
 
     void flip()

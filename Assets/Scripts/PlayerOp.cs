@@ -25,13 +25,15 @@ public class PlayerOp : MonoBehaviour
             Points += 5;
         else if ((other.tag == "Fall" || other.tag == "Enemy") && godMode == false)
         {
-            
-                Points--;
+
+            Points--;
             rb.AddForce(new Vector2(-1000, 700));
             godMode = true;
-            
 
-
+        }
+        else if (other.tag == "headEnemy")
+        {
+            rb.AddForce(new Vector2(0, 15000));
         }
 
 
