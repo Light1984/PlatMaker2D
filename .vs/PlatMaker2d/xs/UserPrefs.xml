@@ -1,9 +1,8 @@
 ﻿<Properties StartupConfiguration="{B9C254FD-27A8-E6A9-C0A6-E6AEB5D674D8}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerOp.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/moveEnemy.cs">
     <Files>
-      <File FileName="Assets/Scripts/CreationScript.cs" Line="22" Column="61" />
-      <File FileName="Assets/Scripts/PlayerOp.cs" Line="36" Column="42" />
-      <File FileName="Assets/Scripts/Movement.cs" Line="4" Column="2" />
+      <File FileName="Assets/Scripts/Movement.cs" Line="68" Column="6" />
+      <File FileName="Assets/Scripts/moveEnemy.cs" Line="18" Column="36" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -15,7 +14,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="3feaf5ba-49e3-4122-bfd9-cbffb8ffb6d6" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="cc554be6-77e9-43ee-bdec-d4dd383d80b1" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
