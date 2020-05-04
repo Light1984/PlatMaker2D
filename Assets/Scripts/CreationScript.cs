@@ -20,6 +20,7 @@ public class CreationScript : MonoBehaviour
         Instantiate(objects[2], new Vector2(step*3, -step), Quaternion.identity);
         Instantiate(objects[4], new Vector2(step*3, 0), Quaternion.identity);
         Instantiate(objects[6], new Vector2(step * 2, step/2), Quaternion.identity);
+        Instantiate(objects[10], new Vector2(step * 4, 0), Quaternion.identity);
 
     }
 }

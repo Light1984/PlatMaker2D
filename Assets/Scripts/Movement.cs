@@ -67,4 +67,28 @@ public class Movement : MonoBehaviour
             rb.AddForce(new Vector2(0, jumpForce * 6/5));
     }
 
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "flyPlat")
+        {
+            this.transform.parent = col.transform;
+        }
+
+
     }
+
+    private void OnCollisionExit2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "flyPlat")
+        {
+            this.transform.parent = null;
+        }
+
+
+    }
+
+
+
+
+}

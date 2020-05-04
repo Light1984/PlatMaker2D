@@ -9,6 +9,7 @@ TagManager:
   - headEnemy
   - Coin
   - Fallzone
+  - flyPlat
   layers:
   - Default
   - TransparentFX
