@@ -1,9 +1,15 @@
 ﻿<Properties StartupConfiguration="{B9C254FD-27A8-E6A9-C0A6-E6AEB5D674D8}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Movement.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerOp.cs">
     <Files>
-      <File FileName="Assets/Scripts/Movement.cs" Line="76" Column="1" />
-      <File FileName="Assets/Scripts/moveEnemy.cs" Line="39" Column="9" />
-      <File FileName="Assets/Scripts/Weapon.cs" Line="9" Column="1" />
+      <File FileName="Assets/Scripts/Movement.cs" Line="42" Column="27" />
+      <File FileName="Assets/Scripts/CreationScript.cs" Line="27" Column="86" />
+      <File FileName="Assets/Scripts/EnemyScript.cs" Line="10" Column="3" />
+      <File FileName="Assets/Scripts/Weapon.cs" Line="18" Column="74" />
+      <File FileName="Assets/Scripts/FallScript.cs" Line="11" Column="60" />
+      <File FileName="Assets/Scripts/PlayerOp.cs" Line="5" Column="1" />
+      <File FileName="Assets/Scripts/CameraMove.cs" Line="5" Column="11" />
+      <File FileName="Assets/Scripts/MainMenu.cs" Line="10" Column="9" />
+      <File FileName="Assets/FinScript.cs" Line="5" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">

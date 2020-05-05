@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerOp : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class PlayerOp : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        godMode = false;
+      
     }
 
 
@@ -23,12 +24,12 @@ public class PlayerOp : MonoBehaviour
     {
         if (other.tag == "Coin")
             Points += 5;
-        else if ((other.tag == "Fall" || other.tag == "Enemy") && godMode == false)
+        else if (other.tag == "Fallzone" || other.tag == "Enemy" || other.tag == "Bullet")
         {
 
             Points--;
             rb.AddForce(new Vector2(-1000, 700));
-            godMode = true;
+           
 
         }
         else if (other.tag == "headEnemy")
@@ -44,22 +45,9 @@ public class PlayerOp : MonoBehaviour
 
 
 
-        if (godMode)
-        {
-
-            while (startime <= timer)
-            {
-                startime += 0.01;
-             //   print(startime);
-            }
-            startime = 0;
-            godMode = false;
-        }
-
         if (Points == -1)
-            Destroy(gameObject);
-
-       
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
+        
 
     }
 

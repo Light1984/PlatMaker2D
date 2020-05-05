@@ -36,10 +36,10 @@ public class Movement : MonoBehaviour
         {
             rb.velocity = new Vector2(moveH * speed, rb.velocity.y);
 
-            if (moveH > 0 && faceRight == false)
+          /*  if (moveH > 0 && faceRight == false)
                 flip();
             if (moveH < 0 && faceRight == true)
-                flip();
+                flip(); */
         }
         else
         {

@@ -10,6 +10,7 @@ TagManager:
   - Coin
   - Fallzone
   - flyPlat
+  - Bullet
   layers:
   - Default
   - TransparentFX
