@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class PlayerOp : MonoBehaviour
 {
     private Rigidbody2D rb;
-    public float Points = 0;
+    private float Nuts = 0;
+    private float Points = 2;
     public bool godMode;
     public double timer = 3000;
     public double startime = 0;
@@ -23,7 +24,7 @@ public class PlayerOp : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Coin")
-            Points += 5;
+            Nuts += 1;
         else if (other.tag == "Fallzone" || other.tag == "Enemy" || other.tag == "Bullet")
         {
 
@@ -36,6 +37,8 @@ public class PlayerOp : MonoBehaviour
         {
             rb.AddForce(new Vector2(0, 15000));
         }
+        else if (other.tag == "Finish" && Nuts == 3)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
 
 
     }

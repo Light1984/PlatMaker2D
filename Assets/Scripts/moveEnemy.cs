@@ -4,37 +4,33 @@ using UnityEngine;
 
 public class moveEnemy : MonoBehaviour
 {
-    private Vector2 startP;
-    private Vector2 endP;
-    private Vector2 begP;
-    public float speed = 3f;
+    float dirY;
+    public float speed = 30f;
     public bool up = true;
-    private float progress;
 
     private void Start()
     {
-        startP = transform.position;
-        endP = new Vector2(0,transform.position.y +50f);
-        begP.y = transform.position.y -50f;
+        dirY = transform.position.y;
     }
 
     void Update()
     {
-        if (transform.position.y >= endP.y)
+        if (transform.position.y > dirY+10f)
             up = false;
-        else if (transform.position.y <= startP.y)
+
+        else if (transform.position.y < dirY -10f)
             up = true;
 
 
         if (up)
-            transform.Translate(endP * Time.deltaTime);
+            transform.position = new Vector2(transform.position.x, transform.position.y + speed * Time.deltaTime);
         else
-            transform.Translate(begP * Time.deltaTime);
-      
+            transform.position = new Vector2(transform.position.x, transform.position.y - speed * Time.deltaTime);
 
 
 
-       
+
+
 
     }   
     
