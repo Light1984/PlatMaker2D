@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Movement : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class Movement : MonoBehaviour
     public LayerMask whatIsGround;
     public Transform groundCheck;
     public bool isGround = false;
+
+
+    private float Nuts = 0;
+    private float Points = 2;
 
 
     // Start is called before the first frame update
@@ -36,7 +41,7 @@ public class Movement : MonoBehaviour
         {
             rb.velocity = new Vector2(moveH * speed, rb.velocity.y);
 
-          /*  if (moveH > 0 && faceRight == false)
+           /* if (moveH > 0 && faceRight == false)
                 flip();
             if (moveH < 0 && faceRight == true)
                 flip(); */
@@ -65,8 +70,28 @@ public class Movement : MonoBehaviour
     {
         if (other.tag == "enemyHead")
             rb.AddForce(new Vector2(0, jumpForce * 6/5));
+
+
+
+        if (other.tag == "Coin")
+            Nuts += 1;
+        else if (other.tag == "Fallzone" || other.tag == "Enemy" || other.tag == "Bullet")
+        {
+
+            Points--;
+            rb.AddForce(new Vector2(-1000, 700));
+
+
+        }
+        else if (other.tag == "headEnemy")
+        {
+            rb.AddForce(new Vector2(0, 15000));
+        }
+        else if (other.tag == "Finish" && Nuts == 3)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
     }
 
+   
 
     private void OnCollisionEnter2D(Collision2D col)
     {
@@ -83,6 +108,7 @@ public class Movement : MonoBehaviour
         if (col.gameObject.tag == "flyPlat")
         {
             this.transform.parent = null;
+           
         }
 
 

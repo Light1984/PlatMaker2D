@@ -4,33 +4,28 @@ using UnityEngine;
 
 public class PlatScript : MonoBehaviour
 {
-    private Vector2 startP;
-    private Vector2 endP;
-    private Vector2 begP;
-    public float speed = 3f;
-    public bool isBegin = true;
-    private float progress;
+    float dirX;
+    public float speed = 30f;
+    public bool right = true;
 
     private void Start()
     {
-        startP = transform.position;
-        endP = new Vector2(transform.position.x + 100f,0);
-        begP.x = transform.position.x - 200f;
+        dirX = transform.position.x;
     }
 
     void Update()
     {
-        if (transform.position.x >= endP.x)
-            isBegin = false;
-        else if (transform.position.x <= startP.x)
-            isBegin = true;
+        if (transform.position.x > dirX + CreationScript.step*3)
+            right = false;
+
+        else if (transform.position.x < dirX)
+            right = true;
 
 
-        if (isBegin)
-            transform.Translate(endP * Time.deltaTime/2);
+        if (right)
+            transform.position = new Vector2(transform.position.x + speed * Time.deltaTime, transform.position.y);
         else
-            transform.Translate(begP * Time.deltaTime);
-
+            transform.position = new Vector2(transform.position.x - speed * Time.deltaTime, transform.position.y );
 
     }
 }

@@ -5,7 +5,7 @@ using System.IO;
 
 public class CreationScript : MonoBehaviour
 {
-    public int step = 30;
+    public static int step = 30;
     public GameObject[] objects;
 
     ///Users/romabruks/Desktop/TestMap.txt

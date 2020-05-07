@@ -44,7 +44,6 @@ GameObject:
   - component: {fileID: 2238662041745886522}
   - component: {fileID: 2238662041745886501}
   - component: {fileID: 2238662041745886500}
-  - component: {fileID: 2238662041745886503}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -200,22 +199,6 @@ MonoBehaviour:
     m_Bits: 256
   groundCheck: {fileID: 2238662041401218262}
   isGround: 0
---- !u!114 &2238662041745886503
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2238662041745886502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86814ed58c2914d6899f3dc85804a47d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Points: 0
-  godMode: 0
-  timer: 100000
-  startime: 0
 --- !u!1001 &1853231080909572190
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -292,6 +275,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Main Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 6377888816695150129, guid: 30c0496ce943b4ac3b92da1636c44c65,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30c0496ce943b4ac3b92da1636c44c65, type: 3}
