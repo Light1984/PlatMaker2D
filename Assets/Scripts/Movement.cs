@@ -20,10 +20,18 @@ public class Movement : MonoBehaviour
     private float Points = 2;
 
 
+
+ 
+    public AudioClip jumpSound;
+    public AudioClip colSound;
+    public AudioClip defeatSound;
+
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        
 
     }
 
@@ -52,7 +60,11 @@ public class Movement : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.C) && isGround)
+        {
             rb.AddForce(new Vector2(0, jumpForce));
+            GetComponent<AudioSource>().clip = jumpSound;
+            GetComponent<AudioSource>().Play();
+        }
 
         
     }
@@ -74,7 +86,11 @@ public class Movement : MonoBehaviour
 
 
         if (other.tag == "Coin")
+        {
             Nuts += 1;
+            GetComponent<AudioSource>().clip = colSound;
+            GetComponent<AudioSource>().Play();
+        }
         else if (other.tag == "Fallzone" || other.tag == "Enemy" || other.tag == "Bullet")
         {
 
@@ -86,6 +102,8 @@ public class Movement : MonoBehaviour
         else if (other.tag == "headEnemy")
         {
             rb.AddForce(new Vector2(0, 15000));
+            GetComponent<AudioSource>().clip = defeatSound;
+            GetComponent<AudioSource>().Play();
         }
         else if (other.tag == "Finish" && Nuts == 3)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
