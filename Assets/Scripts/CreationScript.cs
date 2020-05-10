@@ -6,7 +6,7 @@ using System.Linq;
 
 public class CreationScript : MonoBehaviour
 {
-    public static int step = 30;
+    public static int step = 90;
     public GameObject[] objects;
     
 

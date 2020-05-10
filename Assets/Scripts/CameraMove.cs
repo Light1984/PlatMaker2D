@@ -6,11 +6,12 @@ public class CameraMove : MonoBehaviour
 
     private void Start()
     {
-        
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    void Update()
+    void FixedUpdate()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10f);
     }
 }

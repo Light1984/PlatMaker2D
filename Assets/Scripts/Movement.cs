@@ -2,6 +2,8 @@
 using UnityEngine.SceneManagement;
 using System.IO;
 
+
+
 public class Movement : MonoBehaviour
 {
 
@@ -9,6 +11,7 @@ public class Movement : MonoBehaviour
     public float speed = 20f;
     private Rigidbody2D rb;
     private bool faceRight = true;
+    //GameObject camera;
 
 
     private float groundRad = 0.02f;
@@ -22,11 +25,13 @@ public class Movement : MonoBehaviour
     private int lives;
 
     string[] line;
-
+    private float hg = 0;
+    private int p = 1;
 
     public AudioClip jumpSound;
     public AudioClip colSound;
     public AudioClip defeatSound;
+    private Sprite userSprite;
 
 
     // Start is called before the first frame update
@@ -34,8 +39,8 @@ public class Movement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
+        GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("1");
         line = File.ReadAllLines("TestMap.txt");
-
       
         string[] size = line[0].Split();
         int row = int.Parse(size[0]);
@@ -60,10 +65,10 @@ public class Movement : MonoBehaviour
         {
             rb.velocity = new Vector2(moveH * speed, rb.velocity.y);
 
-           /* if (moveH > 0 && faceRight == false)
+            if (moveH > 0 && faceRight == false)
                 flip();
             if (moveH < 0 && faceRight == true)
-                flip(); */
+                flip(); 
         }
         else
         {
@@ -82,7 +87,37 @@ public class Movement : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
 
 
+        
+
+
+
+
+
     }
+
+
+    private void FixedUpdate()
+    {
+        if (hg < 10)
+            hg++;
+        else if (p == 1 && hg == 10)
+        {
+            GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("df");
+            p++;
+            hg = 0;
+        }
+        else if (p == 2 && hg == 10)
+        {
+            GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("1");
+            p--;
+            hg = 0;
+        }
+
+
+
+        } 
+
+
 
     void flip()
     {

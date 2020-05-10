@@ -15,10 +15,10 @@ public class moveEnemy : MonoBehaviour
 
     void Update()
     {
-        if (transform.position.y > dirY+10f)
+        if (transform.position.y > dirY+ CreationScript.step)
             up = false;
 
-        else if (transform.position.y < dirY -10f)
+        else if (transform.position.y < dirY - CreationScript.step)
             up = true;
 
 
