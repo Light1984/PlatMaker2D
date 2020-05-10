@@ -25,13 +25,16 @@ public class Movement : MonoBehaviour
     private int lives;
 
     string[] line;
-    private float hg = 0;
-    private int p = 1;
+    private int hg = 0;
+    private int jPos = 1;
+    private int lPos = 1;
+    private int condition = 0;
+    private int jumpC;
 
     public AudioClip jumpSound;
     public AudioClip colSound;
     public AudioClip defeatSound;
-    private Sprite userSprite;
+   // private Sprite userSprite;
 
 
     // Start is called before the first frame update
@@ -39,13 +42,13 @@ public class Movement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-        GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("1");
         line = File.ReadAllLines("TestMap.txt");
       
         string[] size = line[0].Split();
         int row = int.Parse(size[0]);
         lives = int.Parse(line[row + 1].Split(':')[1]);
         nutsMax = int.Parse(line[row + 2].Split(':')[1]);
+        jumpC = int.Parse(line[row + 3].Split(':')[1]);
         print(lives);
 
 
@@ -64,7 +67,8 @@ public class Movement : MonoBehaviour
         if (isGround)
         {
             rb.velocity = new Vector2(moveH * speed, rb.velocity.y);
-
+            condition = 0;
+            jPos = 1;
             if (moveH > 0 && faceRight == false)
                 flip();
             if (moveH < 0 && faceRight == true)
@@ -77,10 +81,14 @@ public class Movement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.C) && isGround)
         {
+            condition = 1;
             rb.AddForce(new Vector2(0, jumpForce));
             GetComponent<AudioSource>().clip = jumpSound;
             GetComponent<AudioSource>().Play();
         }
+
+
+
 
 
         if (lives == -1)
@@ -98,21 +106,43 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (hg < 10)
-            hg++;
-        else if (p == 1 && hg == 10)
+        if (condition == 0)
         {
-            GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("df");
-            p++;
-            hg = 0;
-        }
-        else if (p == 2 && hg == 10)
-        {
-            GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("1");
-            p--;
-            hg = 0;
-        }
+            GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Stay/Stay"+(lPos).ToString());
+            if (hg < 10)
+                hg++;
+            else if (hg == 10 && lPos < 3)
+            {
+                hg = 0;
+                lPos++;
+            }
+            else if (hg == 10 && lPos == 3)
+            {
+                hg = 0;
+                lPos -= 2;
+            }
 
+            GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Stay/Stay" + (lPos).ToString());
+        }
+        else if (condition == 1)
+        {
+            GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Jump/Jump" + (jPos).ToString());
+            if (hg < 2)
+                hg++;
+            else if (hg >= 2 && jPos < jumpC)
+            {
+                hg = 0;
+                jPos++;
+            }
+            else if (hg >= 2 && jPos == jumpC)
+            {
+                hg = 0;
+                jPos -= 1;
+            }
+
+
+            
+        }
 
 
         } 
