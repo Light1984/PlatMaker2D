@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2238662041401218257}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.005844151, y: -0.20022361, z: -1882.7603}
+  m_LocalPosition: {x: 0.0835, y: -0.202, z: 0}
   m_LocalScale: {x: 0.25409088, y: 0.25409088, z: 0.25409088}
   m_Children: []
   m_Father: {fileID: 2238662041745886521}
@@ -60,7 +60,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2238662041745886502}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.01, y: 0.61, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 120, y: 120, z: 120}
   m_Children:
   - {fileID: 2238662041401218262}
@@ -107,7 +107,7 @@ SpriteRenderer:
   m_SortingLayerID: -1921102095
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0b692f1e744ec43dd84f1b1df511112b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bc8d64313201e47bbb3b7642ceefae4a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -131,18 +131,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.014735395, y: -0.009823576}
+  m_Offset: {x: -0.029446803, y: 0.055261478}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.9, y: 0.58}
+    oldSize: {x: 0.26, y: 0.344}
     newSize: {x: 0.9, y: 0.58}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.15013707, y: 0.13466677}
+  m_Size: {x: 0.20175417, y: 0.13466653}
   m_EdgeRadius: 0
 --- !u!58 &2238662041745886522
 CircleCollider2D:
@@ -157,9 +157,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.009532381, y: -0.1296398}
+  m_Offset: {x: 0.01019214, y: -0.09348211}
   serializedVersion: 2
-  m_Radius: 0.066798635
+  m_Radius: 0.07689554
 --- !u!50 &2238662041745886501
 Rigidbody2D:
   serializedVersion: 4

@@ -2,36 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System.Linq;
 
 public class CreationScript : MonoBehaviour
 {
     public static int step = 30;
     public GameObject[] objects;
+    
 
     ///Users/romabruks/Desktop/TestMap.txt
-    string[] line;
-
+    string line;
+    string[] lineS;
 
 
     void Start()
     {
 
-        //System.IO.StreamReader file =
-        //    new System.IO.StreamReader(@"/Users/romabruks/Desktop/TestMap.txt");
-
-
-        line = File.ReadAllLines("/Users/romabruks/Desktop/TestMap.txt");
-
-        // print(line[0]);
-        string[] size = line[0].Split();
+        line = File.ReadLines("TestMap.txt").Skip(0).First();
+       
+        string[] size = line.Split();
         int row = int.Parse(size[0]);
         int col = int.Parse(size[1]);
+
+        lineS = new string[row];
+        for (int i = 0; i < row; ++i)
+             lineS[i] = File.ReadLines("TestMap.txt").Skip(i+1).First();
+
+
 
         char[][] field = new char[row][];
         for (int i = 0; i < row; ++i)
         {
             field[i] = new char[col];
-            field[i] = line[i + 1].ToCharArray();
+            field[i] = lineS[i].ToCharArray();
 
         }
 
@@ -79,6 +82,20 @@ public class CreationScript : MonoBehaviour
 
         Instantiate(objects[7], new Vector2(0, -step * 7), Quaternion.identity);
 
+
+        
+
+
+
     }
+
+
+   
+  
+
+
+
+
+
 }
   

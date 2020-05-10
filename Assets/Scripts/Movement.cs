@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class Movement : MonoBehaviour
 {
@@ -16,12 +17,13 @@ public class Movement : MonoBehaviour
     public bool isGround = false;
 
 
-    private float Nuts = 0;
-    private float Points = 2;
+    private int nuts = 0;
+    private int nutsMax;
+    private int lives;
+
+    string[] line;
 
 
-
- 
     public AudioClip jumpSound;
     public AudioClip colSound;
     public AudioClip defeatSound;
@@ -31,7 +33,16 @@ public class Movement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        
+
+        line = File.ReadAllLines("TestMap.txt");
+
+      
+        string[] size = line[0].Split();
+        int row = int.Parse(size[0]);
+        lives = int.Parse(line[row + 1].Split(':')[1]);
+        nutsMax = int.Parse(line[row + 2].Split(':')[1]);
+        print(lives);
+
 
     }
 
@@ -66,7 +77,11 @@ public class Movement : MonoBehaviour
             GetComponent<AudioSource>().Play();
         }
 
-        
+
+        if (lives == -1)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
+
+
     }
 
     void flip()
@@ -87,14 +102,14 @@ public class Movement : MonoBehaviour
 
         if (other.tag == "Coin")
         {
-            Nuts += 1;
+           nuts += 1;
             GetComponent<AudioSource>().clip = colSound;
             GetComponent<AudioSource>().Play();
         }
         else if (other.tag == "Fallzone" || other.tag == "Enemy" || other.tag == "Bullet")
         {
 
-            Points--;
+            lives--;
             rb.AddForce(new Vector2(-1000, 700));
 
 
@@ -105,7 +120,7 @@ public class Movement : MonoBehaviour
             GetComponent<AudioSource>().clip = defeatSound;
             GetComponent<AudioSource>().Play();
         }
-        else if (other.tag == "Finish" && Nuts == 3)
+        else if (other.tag == "Finish" && nuts == nutsMax)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
     }
 
@@ -131,6 +146,9 @@ public class Movement : MonoBehaviour
 
 
     }
+
+
+  
 
 
 
