@@ -27,9 +27,12 @@ public class Movement : MonoBehaviour
     string[] line;
     private int hg = 0;
     private int jPos = 1;
-    private int lPos = 1;
+    private int iPos = 1;
+    private int rPos = 1;
     private int condition = 0;
     private int jumpC;
+    private int idleC;
+    private int runC;
 
     public AudioClip jumpSound;
     public AudioClip colSound;
@@ -48,8 +51,9 @@ public class Movement : MonoBehaviour
         int row = int.Parse(size[0]);
         lives = int.Parse(line[row + 1].Split(':')[1]);
         nutsMax = int.Parse(line[row + 2].Split(':')[1]);
-        jumpC = int.Parse(line[row + 3].Split(':')[1]);
-
+        idleC = int.Parse(line[row + 3].Split(':')[1]);
+        jumpC = int.Parse(line[row + 4].Split(':')[1]);
+        runC = int.Parse(line[row + 5].Split(':')[1]);
 
     }
 
@@ -66,12 +70,15 @@ public class Movement : MonoBehaviour
         if (isGround)
         {
             rb.velocity = new Vector2(moveH * speed, rb.velocity.y);
-            condition = 0;
             jPos = 1;
             if (moveH > 0 && faceRight == false)
                 flip();
             if (moveH < 0 && faceRight == true)
-                flip(); 
+                flip();
+            if (moveH != 0)
+                condition = 2;
+            else
+                condition = 0;
         }
         else
         {
@@ -107,21 +114,20 @@ public class Movement : MonoBehaviour
     {
         if (condition == 0)
         {
-            GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Stay/Stay"+(lPos).ToString());
+            GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Stay/Stay" + (iPos).ToString());
             if (hg < 5)
                 hg++;
-            else if (hg == 5 && lPos < 3)
+            else if (hg == 5 && iPos < idleC)
             {
                 hg = 0;
-                lPos++;
+                iPos++;
             }
-            else if (hg == 5 && lPos == 3)
+            else if (hg == 5 && iPos == idleC)
             {
                 hg = 0;
-                lPos -= 2;
+                iPos = 1;
             }
 
-            GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Stay/Stay" + (lPos).ToString());
         }
         else if (condition == 1)
         {
@@ -139,8 +145,23 @@ public class Movement : MonoBehaviour
                 jPos -= 1;
             }
 
+        }
+        else if (condition == 2)
+        {
+            GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Run/Run" + (rPos).ToString());
+            if (hg < 5)
+                hg++;
+            else if (hg >= 5 && rPos < runC)
+            {
+                hg = 0;
+                rPos++;
+            }
+            else if (hg >= 5 && rPos == runC)
+            {
+                hg = 0;
+                rPos = 1;
+            }
 
-            
         }
 
 

@@ -24,7 +24,8 @@ public class CreationScript : MonoBehaviour
 
 
         objects[14].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Block/Others1");//!!!
-        objects[10].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Block/Block2");//!!!
+        objects[10].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Block/BlockF");//!!!
+        objects[4].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Key/Key1");
 
         line = File.ReadLines("TestMap.txt").Skip(0).First();
        
