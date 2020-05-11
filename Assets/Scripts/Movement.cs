@@ -180,10 +180,6 @@ public class Movement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        
-            
-
-        
 
         if (other.tag == "Coin")
         {
@@ -191,7 +187,7 @@ public class Movement : MonoBehaviour
             GetComponent<AudioSource>().clip = colSound;
             GetComponent<AudioSource>().Play();
         }
-        else if (other.tag == "Fallzone" || (other.tag == "Enemy" && condition != 1) || other.tag == "Bullet")
+        else if (other.tag == "Fallzone" || ((other.tag == "Enemy" || other.tag == "EnemyF") && condition != 1) || other.tag == "Bullet")
         {
 
             lives--;
@@ -203,16 +199,16 @@ public class Movement : MonoBehaviour
 
 
         }
-        else if ((other.tag == "Enemy" && condition == 1) || other.tag == "headEnemy")
+        else if (((other.tag == "Enemy" || other.tag == "EnemyF") && condition == 1) || other.tag == "headEnemy")
         {
             rb.AddForce(new Vector2(0, 15000));
             GetComponent<AudioSource>().clip = defeatSound;
             GetComponent<AudioSource>().Play();
             rb.AddForce(new Vector2(0, jumpForce));
-            if (other.tag == "Enemy")
+            if ((other.tag == "Enemy" || other.tag == "EnemyF"))
                 Destroy(other.gameObject);
         }
-        else if (other.tag == "Finish" && nuts == nutsMax)
+        else if (other.tag == "Finish" && nuts >= nutsMax)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
     }
 

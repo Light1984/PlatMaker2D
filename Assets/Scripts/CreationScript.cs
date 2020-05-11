@@ -26,6 +26,8 @@ public class CreationScript : MonoBehaviour
         objects[14].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Block/Others1");//!!!
         objects[10].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Block/BlockF");//!!!
         objects[4].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Key/Key1");
+        objects[12].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Back");
+        objects[11].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Finish");
 
         line = File.ReadLines("TestMap.txt").Skip(0).First();
        
@@ -97,7 +99,6 @@ public class CreationScript : MonoBehaviour
         Instantiate(objects[7], new Vector2(0, -step * 7), Quaternion.identity);
         Instantiate(objects[12], new Vector2(0, 0), Quaternion.identity);
         Instantiate(objects[12], new Vector2(step * 15, 0), Quaternion.identity);
-
 
 
 
