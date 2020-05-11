@@ -49,7 +49,6 @@ public class Movement : MonoBehaviour
         lives = int.Parse(line[row + 1].Split(':')[1]);
         nutsMax = int.Parse(line[row + 2].Split(':')[1]);
         jumpC = int.Parse(line[row + 3].Split(':')[1]);
-        print(lives);
 
 
     }
@@ -76,12 +75,12 @@ public class Movement : MonoBehaviour
         }
         else
         {
+            condition = 1;
             rb.velocity = new Vector2(moveH * speed/2, rb.velocity.y);
         }
 
         if (Input.GetKeyDown(KeyCode.C) && isGround)
         {
-            condition = 1;
             rb.AddForce(new Vector2(0, jumpForce));
             GetComponent<AudioSource>().clip = jumpSound;
             GetComponent<AudioSource>().Play();
@@ -109,14 +108,14 @@ public class Movement : MonoBehaviour
         if (condition == 0)
         {
             GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Stay/Stay"+(lPos).ToString());
-            if (hg < 10)
+            if (hg < 5)
                 hg++;
-            else if (hg == 10 && lPos < 3)
+            else if (hg == 5 && lPos < 3)
             {
                 hg = 0;
                 lPos++;
             }
-            else if (hg == 10 && lPos == 3)
+            else if (hg == 5 && lPos == 3)
             {
                 hg = 0;
                 lPos -= 2;
@@ -160,10 +159,10 @@ public class Movement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "enemyHead")
-            rb.AddForce(new Vector2(0, jumpForce * 6/5));
+        
+            
 
-
+        
 
         if (other.tag == "Coin")
         {
@@ -171,19 +170,26 @@ public class Movement : MonoBehaviour
             GetComponent<AudioSource>().clip = colSound;
             GetComponent<AudioSource>().Play();
         }
-        else if (other.tag == "Fallzone" || other.tag == "Enemy" || other.tag == "Bullet")
+        else if (other.tag == "Fallzone" || (other.tag == "Enemy" && condition != 1) || other.tag == "Bullet")
         {
 
             lives--;
-            rb.AddForce(new Vector2(-1000, 700));
+            if(faceRight)
+            rb.AddForce(new Vector2(-1000000, 70000));
+            else
+                rb.AddForce(new Vector2(1000000, 7000));
+
 
 
         }
-        else if (other.tag == "headEnemy")
+        else if ((other.tag == "Enemy" && condition == 1) || other.tag == "headEnemy")
         {
             rb.AddForce(new Vector2(0, 15000));
             GetComponent<AudioSource>().clip = defeatSound;
             GetComponent<AudioSource>().Play();
+            rb.AddForce(new Vector2(0, jumpForce));
+            if (other.tag == "Enemy")
+                Destroy(other.gameObject);
         }
         else if (other.tag == "Finish" && nuts == nutsMax)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);

@@ -18,6 +18,14 @@ public class CreationScript : MonoBehaviour
     void Start()
     {
 
+        for(int i = 0; i <3; ++i)
+        objects[i+1].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Block/Block"+(i+1).ToString());
+
+
+
+        objects[14].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Block/Others1");//!!!
+        objects[10].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Block/Block2");//!!!
+
         line = File.ReadLines("TestMap.txt").Skip(0).First();
        
         string[] size = line.Split();
@@ -66,24 +74,30 @@ public class CreationScript : MonoBehaviour
                     case 'c':
                         obj = 11;
                         break;
+                    case 'd':
+                        obj = 14;
+                        break;
 
                 }
-                if (obj > 0)
+                if (obj > 0 && obj <14)
                     Instantiate(objects[obj], new Vector2(j * step, (9 - i) * step), Quaternion.identity);
                 else if (obj == 0)
                 {
                     Instantiate(objects[obj], new Vector2(j * step, (9 - i) * step), Quaternion.identity);
-                    Instantiate(objects[1], new Vector2(j * step, (9 - i) * step), Quaternion.identity);
+                    Instantiate(objects[13], new Vector2(j * step, (9 - i) * step), Quaternion.identity);
                 }
+                else if(obj == 14)
+                    Instantiate(objects[obj], new Vector2(j * step, (10 - i) * step -step/2), Quaternion.identity);
                 obj = -1;
 
             }
         }
 
         Instantiate(objects[7], new Vector2(0, -step * 7), Quaternion.identity);
+        Instantiate(objects[12], new Vector2(0, 0), Quaternion.identity);
+        Instantiate(objects[12], new Vector2(step * 15, 0), Quaternion.identity);
 
 
-        
 
 
 

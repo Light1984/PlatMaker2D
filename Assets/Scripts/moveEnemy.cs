@@ -28,10 +28,10 @@ public class moveEnemy : MonoBehaviour
             transform.position = new Vector2(transform.position.x, transform.position.y - speed * Time.deltaTime);
 
 
+    }
 
 
 
-
-    }   
     
+
 }
