@@ -24,6 +24,9 @@ public class Movement : MonoBehaviour
     private int nutsMax;
     private int lives;
 
+    string folderPath;
+    string[] filePaths;
+
     string[] line;
     private int hg = 0;
     private int jPos = 1;
@@ -98,7 +101,7 @@ public class Movement : MonoBehaviour
 
 
         if (lives == -1)
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
 
 
         
@@ -114,7 +117,7 @@ public class Movement : MonoBehaviour
     {
         if (condition == 0)
         {
-            GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Stay/Stay" + (iPos).ToString());
+            ImageLoader("Stay/Stay", jPos);
             if (hg < 5)
                 hg++;
             else if (hg == 5 && iPos < idleC)
@@ -131,7 +134,7 @@ public class Movement : MonoBehaviour
         }
         else if (condition == 1)
         {
-            GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Jump/Jump" + (jPos).ToString());
+            ImageLoader("Jump/Jump", jPos);
             if (hg < 2)
                 hg++;
             else if (hg >= 2 && jPos < jumpC)
@@ -148,7 +151,7 @@ public class Movement : MonoBehaviour
         }
         else if (condition == 2)
         {
-            GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Run/Run" + (rPos).ToString());
+            ImageLoader("Run/Run", rPos);
             if (hg < 5)
                 hg++;
             else if (hg >= 5 && rPos < runC)
@@ -209,7 +212,7 @@ public class Movement : MonoBehaviour
                 Destroy(other.gameObject);
         }
         else if (other.tag == "Finish" && nuts >= nutsMax)
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
    
@@ -236,7 +239,27 @@ public class Movement : MonoBehaviour
     }
 
 
-  
+    void ImageLoader(string path, int Pos)
+    {
+        //Create an array of file paths from which to choose
+        folderPath = Application.streamingAssetsPath;  //Get path of folder
+        filePaths = Directory.GetFiles(folderPath, path + (Pos).ToString() + ".png"); // Get all files of type .png in this folder
+
+        //Converts desired path into byte array
+        byte[] pngBytes = System.IO.File.ReadAllBytes(filePaths[0]);
+
+        //Creates texture and loads byte array data to create image
+        Texture2D tex = new Texture2D(1, 1);
+        tex.LoadImage(pngBytes);
+
+        //Creates a new Sprite based on the Texture2D
+        Sprite fromTex = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100.0f);
+
+        //Assigns the UI sprite
+        gameObject.GetComponent<SpriteRenderer>().sprite = fromTex;
+    }
+
+
 
 
 

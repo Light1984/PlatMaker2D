@@ -1,9 +1,9 @@
 ﻿<Properties StartupConfiguration="{B9C254FD-27A8-E6A9-C0A6-E6AEB5D674D8}|">
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/bulletScript.cs">
     <Files>
-      <File FileName="Assets/Scripts/Movement.cs" Line="129" Column="14" />
-      <File FileName="Assets/Scripts/bulletScript.cs" Line="52" Column="85" />
-      <File FileName="Assets/Scripts/CreationScript.cs" Line="30" Column="94" />
+      <File FileName="Assets/Scripts/Movement.cs" Line="260" Column="6" />
+      <File FileName="Assets/Scripts/bulletScript.cs" Line="80" Column="14" />
+      <File FileName="Assets/Scripts/CreationScript.cs" Line="32" Column="38" />
       <File FileName="Assets/Scripts/MainMenu.cs" />
       <File FileName="Assets/Scripts/CameraMove.cs" />
       <File FileName="Assets/Scripts/PauseMenu.cs" />
@@ -18,7 +18,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="25e02f1d-e7a3-4aa2-b55f-cad3c14bdee3" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="4b492fc4-2921-480c-909f-c584e29a072a" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Linq;
+using UnityEngine.UI;
 
 public class CreationScript : MonoBehaviour
 {
@@ -13,21 +14,29 @@ public class CreationScript : MonoBehaviour
     ///Users/romabruks/Desktop/TestMap.txt
     string line;
     string[] lineS;
+    string folderPath;
+    string[] filePaths;
+
+
+
 
 
     void Start()
     {
 
-        for(int i = 0; i <3; ++i)
-        objects[i+1].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Block/Block"+(i+1).ToString());
+        
 
 
+        
+       // ImageLoader("Block/Block1", 1);
+        ImageLoader("Block/Block2.png", 2);
+       // ImageLoader("Block/Block3", 3);
+        ImageLoader("Block/Others1.png",14);
+        ImageLoader("Block/BlockF.png", 10);
+        ImageLoader("Key/Key1.png", 4);
+        ImageLoader("Back.png", 12);
+        ImageLoader("Finish.png", 11);
 
-        objects[14].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Block/Others1");//!!!
-        objects[10].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Block/BlockF");//!!!
-        objects[4].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Key/Key1");
-        objects[12].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Back");
-        objects[11].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Finish");
 
         line = File.ReadLines("TestMap.txt").Skip(0).First();
        
@@ -107,7 +116,28 @@ public class CreationScript : MonoBehaviour
 
 
    
-  
+
+
+    void ImageLoader(string path, int obj)
+    {
+        //Create an array of file paths from which to choose
+        folderPath = Application.streamingAssetsPath;  //Get path of folder
+            filePaths = Directory.GetFiles(folderPath, path); // Get all files of type .png in this folder
+       
+
+        //Converts desired path into byte array
+        byte[] pngBytes = System.IO.File.ReadAllBytes(filePaths[0]);
+
+        //Creates texture and loads byte array data to create image
+        Texture2D tex = new Texture2D(1, 1);
+        tex.LoadImage(pngBytes);
+
+        //Creates a new Sprite based on the Texture2D
+        Sprite fromTex = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100.0f);
+
+        //Assigns the UI sprite
+        objects[obj].GetComponent<SpriteRenderer>().sprite = fromTex;
+    }
 
 
 

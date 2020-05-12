@@ -19,6 +19,9 @@ public class bulletScript : MonoBehaviour
     private float Dir;
     int row;
 
+    string folderPath;
+    string[] filePaths;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +38,7 @@ public class bulletScript : MonoBehaviour
         
 
 
-
+     
 
 
     }
@@ -48,8 +51,7 @@ public class bulletScript : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
         if (transform.position.x == target.x && transform.position.y == target.y)
         {
-
-            GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(line[row + 9]);
+            //ImageLoader("Bullet/Explode",1);
             Destroy(gameObject, 1);
         }
 
@@ -60,10 +62,10 @@ public class bulletScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Bullet/Bullet" + (bPos).ToString());
+        ImageLoader("Bullet/Bullet", bPos);
         if (hg < 15)
             hg++;
-        else if (hg == 15 && bPos < bulletC-1)
+        else if (hg == 15 && bPos < bulletC)
         {
             hg = 0;
             bPos++;
@@ -75,8 +77,29 @@ public class bulletScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-           // GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(line[ParticleSystemAnimationRowMode+9]);
+           // ImageLoader("Bullet/Explode", 1);
             Destroy(gameObject, 1);
         }
+    }
+
+
+    void ImageLoader(string path, int Pos)
+    {
+        //Create an array of file paths from which to choose
+        folderPath = Application.streamingAssetsPath;  //Get path of folder
+        filePaths = Directory.GetFiles(folderPath, path + (Pos).ToString() + ".png"); // Get all files of type .png in this folder
+
+        //Converts desired path into byte array
+        byte[] pngBytes = System.IO.File.ReadAllBytes(filePaths[0]);
+
+        //Creates texture and loads byte array data to create image
+        Texture2D tex = new Texture2D(1, 1);
+        tex.LoadImage(pngBytes);
+
+        //Creates a new Sprite based on the Texture2D
+        Sprite fromTex = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100.0f);
+
+        //Assigns the UI sprite
+        gameObject.GetComponent<SpriteRenderer>().sprite = fromTex;
     }
 }

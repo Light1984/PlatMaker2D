@@ -20,6 +20,9 @@ public class Enemy : MonoBehaviour
     private int hg = 0;
     private int ePos = 1;
 
+    string folderPath;
+    string[] filePaths;
+
     private string fire;
     private int fireC;
     private int efireC;
@@ -56,7 +59,7 @@ public class Enemy : MonoBehaviour
     {
         if (gameObject.tag == "EnemyF")
         {
-            if (GameObject.FindGameObjectWithTag("Player").transform.position.x < transform.position.x && faceR || GameObject.FindGameObjectWithTag("Player").transform.position.x > transform.position.x && !faceR)
+            if (GameObject.FindGameObjectWithTag("Player").transform.position.x < transform.position.x && !faceR || GameObject.FindGameObjectWithTag("Player").transform.position.x > transform.position.x && faceR)
             {
                 faceR = !faceR;
                 transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
@@ -96,7 +99,7 @@ public class Enemy : MonoBehaviour
 
 
 
-            GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Enemy1/Fly" + (mPos).ToString());
+            ImageLoader("Enemy1/Fly", mPos);
             if (hg < 5)
                 hg++;
             else if (hg == 5 && mPos < moveC)
@@ -113,9 +116,9 @@ public class Enemy : MonoBehaviour
         else
         {
             
-            if (timeBtwShots <= 2)
+            if (timeBtwShots <= 2 && efireC !=0 || efireC == 0)
             {
-                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Enemy2/Fire" + (mPos).ToString());
+                ImageLoader("Enemy2/Fire", mPos);
                 if (hg < 5)
                     hg++;
                 else if (hg == 5 && mPos < fireC)
@@ -131,7 +134,7 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Enemy2/eFire" + (ePos).ToString());
+                ImageLoader("Enemy2/eFire", ePos);
                 if (hg < 5)
                     hg++;
                 else if (hg == 5 && ePos < efireC)
@@ -148,6 +151,26 @@ public class Enemy : MonoBehaviour
 
         }
 
+    }
+
+    void ImageLoader(string path, int Pos)
+    {
+        //Create an array of file paths from which to choose
+        folderPath = Application.streamingAssetsPath;  //Get path of folder
+        filePaths = Directory.GetFiles(folderPath, path + (Pos).ToString() + ".png"); // Get all files of type .png in this folder
+
+        //Converts desired path into byte array
+        byte[] pngBytes = System.IO.File.ReadAllBytes(filePaths[0]);
+
+        //Creates texture and loads byte array data to create image
+        Texture2D tex = new Texture2D(1, 1);
+        tex.LoadImage(pngBytes);
+
+        //Creates a new Sprite based on the Texture2D
+        Sprite fromTex = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100.0f);
+
+        //Assigns the UI sprite
+        gameObject.GetComponent<SpriteRenderer>().sprite = fromTex;
     }
 
 
