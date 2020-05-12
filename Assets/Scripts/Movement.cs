@@ -11,7 +11,8 @@ public class Movement : MonoBehaviour
     public float speed = 20f;
     private Rigidbody2D rb;
     private bool faceRight = true;
-    //GameObject camera;
+    private bool godeMode = false;
+    private int timeGode = 0;
 
 
     private float groundRad = 0.02f;
@@ -32,10 +33,12 @@ public class Movement : MonoBehaviour
     private int jPos = 1;
     private int iPos = 1;
     private int rPos = 1;
+    private int dPos = 1;
     private int condition = 0;
     private int jumpC;
     private int idleC;
     private int runC;
+    private int damC;
 
     public AudioClip jumpSound;
     public AudioClip colSound;
@@ -57,6 +60,7 @@ public class Movement : MonoBehaviour
         idleC = int.Parse(line[row + 3].Split(':')[1]);
         jumpC = int.Parse(line[row + 4].Split(':')[1]);
         runC = int.Parse(line[row + 5].Split(':')[1]);
+        damC = int.Parse(line[row + 6].Split(':')[1]);
 
     }
 
@@ -67,36 +71,39 @@ public class Movement : MonoBehaviour
         //anim.SetBool("Ground", isGround);
 
 
-
-        float moveH = Input.GetAxis("Horizontal");
-
-        if (isGround)
+        if (!godeMode)
         {
-            rb.velocity = new Vector2(moveH * speed, rb.velocity.y);
-            jPos = 1;
-            if (moveH > 0 && faceRight == false)
-                flip();
-            if (moveH < 0 && faceRight == true)
-                flip();
-            if (moveH != 0)
-                condition = 2;
+            float moveH = Input.GetAxis("Horizontal");
+
+            if (isGround)
+            {
+                rb.velocity = new Vector2(moveH * speed, rb.velocity.y);
+                jPos = 1;
+                if (moveH > 0 && faceRight == false)
+                    flip();
+                if (moveH < 0 && faceRight == true)
+                    flip();
+                if (moveH != 0)
+                    condition = 2;
+                else
+                    condition = 0;
+            }
             else
-                condition = 0;
+            {
+                condition = 1;
+                rb.velocity = new Vector2(moveH * speed / 2, rb.velocity.y);
+            }
+
+            if (Input.GetKeyDown(KeyCode.C) && isGround)
+            {
+                rb.AddForce(new Vector2(0, jumpForce));
+                GetComponent<AudioSource>().clip = jumpSound;
+                GetComponent<AudioSource>().Play();
+            }
+
         }
         else
-        {
-            condition = 1;
-            rb.velocity = new Vector2(moveH * speed/2, rb.velocity.y);
-        }
-
-        if (Input.GetKeyDown(KeyCode.C) && isGround)
-        {
-            rb.AddForce(new Vector2(0, jumpForce));
-            GetComponent<AudioSource>().clip = jumpSound;
-            GetComponent<AudioSource>().Play();
-        }
-
-
+            condition = 3;
 
 
 
@@ -117,7 +124,7 @@ public class Movement : MonoBehaviour
     {
         if (condition == 0)
         {
-            ImageLoader("Stay/Stay", jPos);
+            ImageLoader("Stay/Stay", iPos);
             if (hg < 5)
                 hg++;
             else if (hg == 5 && iPos < idleC)
@@ -166,6 +173,34 @@ public class Movement : MonoBehaviour
             }
 
         }
+        else if (condition == 3)
+        {
+            ImageLoader("Hit/Hit", 1);
+            if (hg < 5)
+                hg++;
+            else if (hg >= 5 && dPos < damC)
+            {
+                hg = 0;
+                rPos++;
+            }
+            else if (hg >= 5 && dPos == damC)
+            {
+                hg = 0;
+                dPos = 1;
+            }
+        }
+
+        if (!godeMode)
+            timeGode = 0;
+        else
+        {
+            timeGode += 1;
+            if (timeGode == 60)
+                godeMode = false;
+
+        }
+
+
 
 
         } 
@@ -190,26 +225,24 @@ public class Movement : MonoBehaviour
             GetComponent<AudioSource>().clip = colSound;
             GetComponent<AudioSource>().Play();
         }
-        else if (other.tag == "Fallzone" || ((other.tag == "Enemy" || other.tag == "EnemyF") && condition != 1) || other.tag == "Bullet")
+        else if ((other.tag == "Fallzone" || ((other.tag == "Enemy" || other.tag == "EnemyF") && condition != 1) || other.tag == "Bullet") && !godeMode)
         {
-
+            godeMode = true;
             lives--;
             if(faceRight)
-            rb.AddForce(new Vector2(-1000000, 70000));
+            rb.AddForce(new Vector2(-9000, 7000));
             else
-                rb.AddForce(new Vector2(1000000, 7000));
+                rb.AddForce(new Vector2(9000, 7000));
 
 
 
         }
-        else if (((other.tag == "Enemy" || other.tag == "EnemyF") && condition == 1) || other.tag == "headEnemy")
+        else if (((other.tag == "Enemy" || other.tag == "EnemyF") && condition == 1))
         {
-            rb.AddForce(new Vector2(0, 15000));
+            rb.AddForce(new Vector2(0, 20000));
             GetComponent<AudioSource>().clip = defeatSound;
             GetComponent<AudioSource>().Play();
-            rb.AddForce(new Vector2(0, jumpForce));
-            if ((other.tag == "Enemy" || other.tag == "EnemyF"))
-                Destroy(other.gameObject);
+            Destroy(other.gameObject);
         }
         else if (other.tag == "Finish" && nuts >= nutsMax)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);

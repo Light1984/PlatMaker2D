@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using System.Linq;
 using UnityEngine.UI;
+using System;
 
 public class CreationScript : MonoBehaviour
 {
@@ -18,17 +19,16 @@ public class CreationScript : MonoBehaviour
     string[] filePaths;
 
 
-
-
+    
 
     void Start()
     {
 
-        
+     
 
 
-        
-       // ImageLoader("Block/Block1", 1);
+
+        // ImageLoader("Block/Block1", 1);
         ImageLoader("Block/Block2.png", 2);
        // ImageLoader("Block/Block3", 3);
         ImageLoader("Block/Others1.png",14);
@@ -115,7 +115,7 @@ public class CreationScript : MonoBehaviour
     }
 
 
-   
+    
 
 
     void ImageLoader(string path, int obj)
@@ -141,7 +141,8 @@ public class CreationScript : MonoBehaviour
 
 
 
+   
+
 
 
 }
-  

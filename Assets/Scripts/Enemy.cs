@@ -43,10 +43,10 @@ public class Enemy : MonoBehaviour
 
 
         if (gameObject.tag == "Enemy")
-            moveC = int.Parse(line[row + 6].Split(':')[1]);
+            moveC = int.Parse(line[row + 7].Split(':')[1]);
         else
         {
-            fire = line[row + 7].Split(':')[1];
+            fire = line[row + 8].Split(':')[1];
             fireC = int.Parse(fire.Split(',')[0]);
             efireC = int.Parse(fire.Split(',')[1]);
            

@@ -22,6 +22,7 @@ public class bulletScript : MonoBehaviour
     string folderPath;
     string[] filePaths;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +35,7 @@ public class bulletScript : MonoBehaviour
 
         string[] size = line[0].Split();
          row = int.Parse(size[0]);
-        bulletC  = int.Parse(line[row + 8].Split(':')[1]);
+        bulletC  = int.Parse(line[row + 9].Split(':')[1]);
         
 
 
@@ -102,4 +103,12 @@ public class bulletScript : MonoBehaviour
         //Assigns the UI sprite
         gameObject.GetComponent<SpriteRenderer>().sprite = fromTex;
     }
+
+
+     
+
+
+
+
+
 }
