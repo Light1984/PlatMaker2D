@@ -8,11 +8,11 @@ public class Enemy : MonoBehaviour
 {
     float dirY;
     float dirX;
-    public float speed = 30f;
+    private float speed;
     public bool up = true;
 
     public float timeBtwShots;
-    public float startBtwShots;
+    private float startBtwShots;
     public GameObject projectile;
 
     string line;
@@ -28,6 +28,8 @@ public class Enemy : MonoBehaviour
     private int fireC;
     private int efireC;
     private bool faceR = true;
+
+
 
 
 
@@ -59,6 +61,9 @@ public class Enemy : MonoBehaviour
             efireC = int.Parse(fire.Split(',')[1]);
 
         }
+
+        speed = float.Parse(File.ReadLines("TestMap.txt").Skip(row + 12).First().Split(':')[1]);
+        startBtwShots = int.Parse(File.ReadLines("TestMap.txt").Skip(row + 13).First().Split(':')[1]);
 
 
 

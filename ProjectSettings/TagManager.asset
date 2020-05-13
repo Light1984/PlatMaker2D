@@ -11,6 +11,8 @@ TagManager:
   - Fallzone
   - flyPlat
   - Bullet
+  - EnemyF
+  - Bul
   layers:
   - Default
   - TransparentFX

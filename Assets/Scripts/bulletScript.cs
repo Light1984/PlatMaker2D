@@ -4,10 +4,11 @@ using UnityEngine;
 using System.IO;
 using System.Linq;
 
+
 public class bulletScript : MonoBehaviour
 {
 
-    public float speed = 7f;
+    private float speed;
 
     private Transform player;
     private Vector2 target;
@@ -22,6 +23,11 @@ public class bulletScript : MonoBehaviour
 
     string folderPath;
     string[] filePaths;
+    public Rigidbody2D rb;
+    private int time = 0;
+
+
+  
 
 
     void Start()
@@ -39,17 +45,33 @@ public class bulletScript : MonoBehaviour
         line = File.ReadLines("TestMap.txt").Skip(row + 9).First();
         bulletC = int.Parse(line.Split(':')[1]);
 
+        if (gameObject.tag == "Bullet")
+            speed = float.Parse(File.ReadLines("TestMap.txt").Skip(row + 14).First().Split(':')[1]);
+        else
+        {
+            line = (File.ReadLines("TestMap.txt").Skip(row + 15).First().Split(':')[1]);
+            speed = int.Parse(line.Split(',')[1]);
+
+            rb.velocity = transform.right * speed;
+        }
+
 
     }
 
 
     private void Update()
     {
-        transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
-        if (transform.position.x == target.x && transform.position.y == target.y)
+        if (gameObject.tag == "Bullet")
         {
-            Destroy(gameObject, 1);
+            transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
+            if (transform.position.x == target.x && transform.position.y == target.y)
+            {
+                Destroy(gameObject, 1);
+            }
+      
         }
+
+
 
 
     }
@@ -58,6 +80,14 @@ public class bulletScript : MonoBehaviour
 
     private void FixedUpdate()
     {
+
+        if (gameObject.tag != "Bullet")
+        {
+            time++;
+            if (time == 180)
+                Destroy(gameObject, 1);
+        }
+
         ImageLoader("Bullet/Bullet", bPos);
         if (hg < 15)
             hg++;
@@ -71,11 +101,20 @@ public class bulletScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && gameObject.tag == "Bullet")
         {
 
             Destroy(gameObject, 1);
         }
+
+        if (collision.gameObject.tag != "Player")
+        {
+            Destroy(gameObject, 1);
+            if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "EnemyF")
+                Destroy(collision.gameObject);
+
+        }
+
     }
 
 

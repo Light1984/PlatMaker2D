@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -10,14 +11,27 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenuUI;
     public AudioMixer audioMixer;
 
+    private float timeStart;
+    public Text textBox;
+    private bool timeActive = true;
+
     // Update is called once per frame
     void Update()
     {
+        
+        textBox.text = (timeStart).ToString("F2");
+
+        if(timeActive)
+          timeStart += Time.deltaTime;
+        
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (GameIsPaused)
                 Resume();
             else Pause();
+
+
             
         }
     }
@@ -29,6 +43,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
+        timeActive = !timeActive;
 
     }
 
@@ -37,7 +52,8 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
-        }
+        timeActive = !timeActive;
+    }
 
     public void LoadMenu()
     {

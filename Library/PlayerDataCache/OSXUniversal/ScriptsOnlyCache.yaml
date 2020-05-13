@@ -1,6 +1,7 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - BackSound
     - CameraMove
     - CoinScipt
     - CreationScript
@@ -69,15 +70,9 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 70
       Script: {instanceID: 0}
-    - Class: 74
-      Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
     - Class: 82
-      Script: {instanceID: 0}
-    - Class: 83
-      Script: {instanceID: 0}
-    - Class: 91
       Script: {instanceID: 0}
     - Class: 95
       Script: {instanceID: 0}
@@ -116,17 +111,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13272}
     - Class: 114
-      Script: {instanceID: 13622}
+      Script: {instanceID: 13436}
     - Class: 114
-      Script: {instanceID: 13656}
+      Script: {instanceID: 13624}
     - Class: 114
-      Script: {instanceID: 13930}
+      Script: {instanceID: 13658}
     - Class: 114
-      Script: {instanceID: 14266}
+      Script: {instanceID: 13932}
     - Class: 114
-      Script: {instanceID: 14316}
+      Script: {instanceID: 14268}
     - Class: 114
-      Script: {instanceID: 14906}
+      Script: {instanceID: 14318}
+    - Class: 114
+      Script: {instanceID: 14888}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -144,12 +141,6 @@ ScriptsOnlyBuild:
     - Class: 223
       Script: {instanceID: 0}
     - Class: 224
-      Script: {instanceID: 0}
-    - Class: 241
-      Script: {instanceID: 0}
-    - Class: 243
-      Script: {instanceID: 0}
-    - Class: 245
       Script: {instanceID: 0}
   scriptHashData:
   - hash:
@@ -538,6 +529,12 @@ ScriptsOnlyBuild:
     className: TimelineAsset
   - hash:
       serializedVersion: 2
+      Hash: ea517797f7611b0978f23a2293af50ad
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: BackSound
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -670,7 +667,7 @@ ScriptsOnlyBuild:
     className: Slider
   - hash:
       serializedVersion: 2
-      Hash: 86c13bfe4db826fe41ffe578050ff868
+      Hash: 61917c4c0c7a0a94848f94e8ef5d8ee2
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Movement

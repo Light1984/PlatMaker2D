@@ -4,11 +4,12 @@ using System.IO;
 using System.Collections;
 using System.Linq;
 
+
 public class Movement : MonoBehaviour
 {
 
-    public float jumpForce = 3000f;
-    public float speed = 20f;
+    private float jumpForce;
+    private float speed;
     private Rigidbody2D rb;
     private bool faceRight = true;
     private bool godeMode = false;
@@ -21,12 +22,14 @@ public class Movement : MonoBehaviour
     public bool isGround = false;
 
 
-    private int nuts = 0;
+    public int nuts = 0;
     private int nutsMax;
-    private int lives;
+    public int lives;
 
     string folderPath;
     string[] filePaths;
+
+
 
     string line;
     private int hg = 0;
@@ -39,10 +42,18 @@ public class Movement : MonoBehaviour
     private int idleC;
     private int runC;
     private int damC;
+    private string jumpSD;
+    private int idealJ;
+    private string runSD;
+    private int idealR;
 
     private AudioClip jumpSound;
     private AudioClip colSound;
     private AudioClip defeatSound;
+
+    private string attack;
+    private int typeAttack;
+    public GameObject projectile;
 
     private string jumpPath = "/Sounds/Jump.wav";
     private string hitPath = "/Sounds/Hit.wav";
@@ -51,6 +62,8 @@ public class Movement : MonoBehaviour
 
     public string url;
     public AudioSource source;
+
+
 
 
     // Start is called before the first frame update
@@ -89,9 +102,28 @@ public class Movement : MonoBehaviour
         lives = int.Parse(File.ReadLines("TestMap.txt").Skip(row + 1).First().Split(':')[1]);
         nutsMax = int.Parse(File.ReadLines("TestMap.txt").Skip(row + 2).First().Split(':')[1]);
         idleC = int.Parse(File.ReadLines("TestMap.txt").Skip(row + 3).First().Split(':')[1]);
-        jumpC = int.Parse(File.ReadLines("TestMap.txt").Skip(row + 4).First().Split(':')[1]);
-        runC = int.Parse(File.ReadLines("TestMap.txt").Skip(row + 5).First().Split(':')[1]);
+
+        jumpSD = (File.ReadLines("TestMap.txt").Skip(row + 4).First().Split(':')[1]);
+        jumpC = int.Parse(jumpSD.Split(',')[0]);
+        idealJ = int.Parse(jumpSD.Split(',')[1]);
+
+
+        runSD = (File.ReadLines("TestMap.txt").Skip(row + 5).First().Split(':')[1]);
+        runC = int.Parse(runSD.Split(',')[0]);
+        idealR = int.Parse(runSD.Split(',')[1]);
+
+
+
         damC = int.Parse(File.ReadLines("TestMap.txt").Skip(row + 6).First().Split(':')[1]);
+        speed = float.Parse(File.ReadLines("TestMap.txt").Skip(row + 10).First().Split(':')[1]);
+       jumpForce = float.Parse(File.ReadLines("TestMap.txt").Skip(row + 11).First().Split(':')[1]);
+
+
+
+        attack = (File.ReadLines("TestMap.txt").Skip(row + 15).First().Split(':')[1]);
+        typeAttack = int.Parse(attack.Split(',')[0]);
+        
+
 
     }
 
@@ -101,7 +133,6 @@ public class Movement : MonoBehaviour
         isGround = Physics2D.OverlapCircle(groundCheck.position, groundRad, whatIsGround);
         //anim.SetBool("Ground", isGround);
 
-        
 
 
         if (!godeMode)
@@ -137,6 +168,14 @@ public class Movement : MonoBehaviour
                 GetComponent<AudioSource>().Play();
             }
 
+            if (typeAttack == 2 && Input.GetKeyDown(KeyCode.X))
+            {
+
+                Instantiate(projectile, transform.position, transform.rotation);
+            }
+
+
+
         }
         else
             condition = 3;
@@ -170,35 +209,74 @@ public class Movement : MonoBehaviour
         }
         else if (condition == 1)
         {
-            ImageLoader("Jump/Jump", jPos);
-            if (hg < 2)
-                hg++;
-            else if (hg >= 2 && jPos < jumpC)
+            if (idealJ > 0)
             {
-                hg = 0;
-                jPos++;
+                ImageLoader("Jump/Jump", jPos);
+                if (hg < 2)
+                    hg++;
+                else if (hg >= 2 && jPos < jumpC)
+                {
+                    hg = 0;
+                    jPos++;
+                }
+                else if (hg >= 2 && jPos == jumpC)
+                {
+                    hg = 0;
+                    jPos -= idealJ-1;
+                }
             }
-            else if (hg >= 2 && jPos == jumpC)
+            else
             {
-                hg = 0;
-                jPos -= 1;
+                ImageLoader("Jump/Jump", jPos);
+                if (hg < 5)
+                    hg++;
+                else if (hg >= 5 && jPos < jumpC)
+                {
+                    hg = 0;
+                    jPos++;
+                }
+                else if (hg >= 5 && jPos == jumpC)
+                {
+                    hg = 0;
+                    jPos = 1;
+                }
             }
-
+            
         }
         else if (condition == 2)
         {
-            ImageLoader("Run/Run", rPos);
-            if (hg < 5)
-                hg++;
-            else if (hg >= 5 && rPos < runC)
+
+            if (idealR > 0)
             {
-                hg = 0;
-                rPos++;
+                ImageLoader("Run/Run", rPos);
+                if (hg < 2)
+                    hg++;
+                else if (hg >= 2 && jPos < runC)
+                {
+                    hg = 0;
+                    rPos++;
+                }
+                else if (hg >= 2 && jPos == runC)
+                {
+                    hg = 0;
+                    rPos -= idealR - 1;
+                }
             }
-            else if (hg >= 5 && rPos == runC)
+            else
             {
-                hg = 0;
-                rPos = 1;
+                ImageLoader("Run/Run", rPos);
+                if (hg < 5)
+                    hg++;
+                else if (hg >= 5 && rPos < runC)
+                {
+                    hg = 0;
+                    rPos++;
+                }
+                else if (hg >= 5 && rPos == runC)
+                {
+                    hg = 0;
+                    rPos = 1;
+                }
             }
 
         }
@@ -239,7 +317,7 @@ public class Movement : MonoBehaviour
     void flip()
     {
         faceRight = !faceRight;
-        transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
+        transform.Rotate(0f, 180f, 0f);
     }
 
 
@@ -254,7 +332,7 @@ public class Movement : MonoBehaviour
             GetComponent<AudioSource>().clip = colSound;
             GetComponent<AudioSource>().Play();
         }
-        else if ((other.tag == "Fallzone" || ((other.tag == "Enemy" || other.tag == "EnemyF") && condition != 1) || other.tag == "Bullet") && !godeMode)
+        else if ((other.tag == "Fallzone" || ((other.tag == "Enemy" || other.tag == "EnemyF") && (condition != 1 || typeAttack == 2)) || other.tag == "Bullet") && !godeMode)
         {
             godeMode = true;
             lives--;
@@ -266,7 +344,7 @@ public class Movement : MonoBehaviour
 
 
         }
-        else if (((other.tag == "Enemy" || other.tag == "EnemyF") && condition == 1))
+        else if (((other.tag == "Enemy" || other.tag == "EnemyF") && condition == 1 && typeAttack == 1))
         {
             rb.AddForce(new Vector2(0, 20000));
             GetComponent<AudioSource>().clip = defeatSound;

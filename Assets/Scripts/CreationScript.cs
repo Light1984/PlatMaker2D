@@ -25,10 +25,9 @@ public class CreationScript : MonoBehaviour
     {
 
 
-
-        // ImageLoader("Block/Block1", 1);
+        ImageLoader("Block/Block1.png", 1);
         ImageLoader("Block/Block2.png", 2);
-       // ImageLoader("Block/Block3", 3);
+        ImageLoader("Block/Block3.png", 3);
         ImageLoader("Block/Others1.png",14);
         ImageLoader("Block/BlockF.png", 10);
         ImageLoader("Key/Key1.png", 4);
@@ -105,7 +104,7 @@ public class CreationScript : MonoBehaviour
 
         Instantiate(objects[7], new Vector2(0, -step * 7), Quaternion.identity);
         Instantiate(objects[12], new Vector2(0, 0), Quaternion.identity);
-        Instantiate(objects[12], new Vector2(step * 15, 0), Quaternion.identity);
+        
 
 
 
