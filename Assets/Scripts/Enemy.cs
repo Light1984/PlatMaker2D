@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -14,7 +15,7 @@ public class Enemy : MonoBehaviour
     public float startBtwShots;
     public GameObject projectile;
 
-    string[] line;
+    string line;
     private int moveC;
     private int mPos = 1;
     private int hg = 0;
@@ -37,19 +38,26 @@ public class Enemy : MonoBehaviour
         dirX = transform.position.x;
         timeBtwShots = startBtwShots;
 
-        line = File.ReadAllLines("TestMap.txt");
-        string[] size = line[0].Split();
+
+        line = File.ReadLines("TestMap.txt").Skip(0).First();
+        string[] size = line.Split();
         int row = int.Parse(size[0]);
+
+       
 
 
         if (gameObject.tag == "Enemy")
-            moveC = int.Parse(line[row + 7].Split(':')[1]);
+        {
+            line = File.ReadLines("TestMap.txt").Skip(row + 7).First();
+            moveC = int.Parse(line.Split(':')[1]);
+        }
         else
         {
-            fire = line[row + 8].Split(':')[1];
+            line = File.ReadLines("TestMap.txt").Skip(row + 8).First();
+            fire = line.Split(':')[1];
             fireC = int.Parse(fire.Split(',')[0]);
             efireC = int.Parse(fire.Split(',')[1]);
-           
+
         }
 
 

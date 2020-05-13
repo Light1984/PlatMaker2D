@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 2238662041745886501}
   - component: {fileID: 2238662041745886500}
   - component: {fileID: 6145632356764266213}
+  - component: {fileID: 8229174967622417354}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -114,7 +115,7 @@ SpriteRenderer:
   m_Size: {x: 0.9, y: 0.58}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &2238662041745886523
@@ -124,7 +125,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2238662041745886502}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -150,7 +151,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2238662041745886502}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -199,9 +200,8 @@ MonoBehaviour:
     m_Bits: 256
   groundCheck: {fileID: 2238662041401218262}
   isGround: 0
-  jumpSound: {fileID: 8300000, guid: ebd96f100f690492cae0d8e0ec357f89, type: 3}
-  colSound: {fileID: 8300000, guid: 2cbf4d21a147e401da60594570b56eed, type: 3}
-  defeatSound: {fileID: 8300000, guid: fca04fa258a774197850a02dca3955ef, type: 3}
+  url: 
+  source: {fileID: 0}
 --- !u!82 &6145632356764266213
 AudioSource:
   m_ObjectHideFlags: 0
@@ -298,3 +298,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!70 &8229174967622417354
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2238662041745886502}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.016402606, y: -0.020629756}
+  m_Size: {x: 0.46719486, y: 0.8635236}
+  m_Direction: 0

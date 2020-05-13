@@ -24,8 +24,6 @@ public class CreationScript : MonoBehaviour
     void Start()
     {
 
-     
-
 
 
         // ImageLoader("Block/Block1", 1);

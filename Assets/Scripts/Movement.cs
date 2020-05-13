@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
-
-
+using System.Collections;
+using System.Linq;
 
 public class Movement : MonoBehaviour
 {
@@ -28,7 +28,7 @@ public class Movement : MonoBehaviour
     string folderPath;
     string[] filePaths;
 
-    string[] line;
+    string line;
     private int hg = 0;
     private int jPos = 1;
     private int iPos = 1;
@@ -40,27 +40,58 @@ public class Movement : MonoBehaviour
     private int runC;
     private int damC;
 
-    public AudioClip jumpSound;
-    public AudioClip colSound;
-    public AudioClip defeatSound;
-   // private Sprite userSprite;
+    private AudioClip jumpSound;
+    private AudioClip colSound;
+    private AudioClip defeatSound;
+
+    private string jumpPath = "/Sounds/Jump.wav";
+    private string hitPath = "/Sounds/Hit.wav";
+    private string colPath = "/Sounds/Coin.wav";
+
+
+    public string url;
+    public AudioSource source;
 
 
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start()
     {
+        source = GetComponent<AudioSource>();
+        url = "file://" + Application.streamingAssetsPath + jumpPath;
+        using (var www = new WWW(url))
+        {
+            yield return www;
+            jumpSound = www.GetAudioClip();
+        }
+
+        url = "file://" + Application.streamingAssetsPath + hitPath;
+        using (var www = new WWW(url))
+        {
+            yield return www;
+            defeatSound = www.GetAudioClip();
+        }
+
+        url = "file://" + Application.streamingAssetsPath + colPath;
+        using (var www = new WWW(url))
+        {
+            yield return www;
+            colSound = www.GetAudioClip();
+        }
+
+
         rb = GetComponent<Rigidbody2D>();
 
-        line = File.ReadAllLines("TestMap.txt");
-      
-        string[] size = line[0].Split();
+        line = File.ReadLines("TestMap.txt").Skip(0).First();
+
+        string[] size = line.Split();
         int row = int.Parse(size[0]);
-        lives = int.Parse(line[row + 1].Split(':')[1]);
-        nutsMax = int.Parse(line[row + 2].Split(':')[1]);
-        idleC = int.Parse(line[row + 3].Split(':')[1]);
-        jumpC = int.Parse(line[row + 4].Split(':')[1]);
-        runC = int.Parse(line[row + 5].Split(':')[1]);
-        damC = int.Parse(line[row + 6].Split(':')[1]);
+
+        lives = int.Parse(File.ReadLines("TestMap.txt").Skip(row + 1).First().Split(':')[1]);
+        nutsMax = int.Parse(File.ReadLines("TestMap.txt").Skip(row + 2).First().Split(':')[1]);
+        idleC = int.Parse(File.ReadLines("TestMap.txt").Skip(row + 3).First().Split(':')[1]);
+        jumpC = int.Parse(File.ReadLines("TestMap.txt").Skip(row + 4).First().Split(':')[1]);
+        runC = int.Parse(File.ReadLines("TestMap.txt").Skip(row + 5).First().Split(':')[1]);
+        damC = int.Parse(File.ReadLines("TestMap.txt").Skip(row + 6).First().Split(':')[1]);
 
     }
 
@@ -69,6 +100,8 @@ public class Movement : MonoBehaviour
     {
         isGround = Physics2D.OverlapCircle(groundCheck.position, groundRad, whatIsGround);
         //anim.SetBool("Ground", isGround);
+
+        
 
 
         if (!godeMode)
@@ -79,10 +112,7 @@ public class Movement : MonoBehaviour
             {
                 rb.velocity = new Vector2(moveH * speed, rb.velocity.y);
                 jPos = 1;
-                if (moveH > 0 && faceRight == false)
-                    flip();
-                if (moveH < 0 && faceRight == true)
-                    flip();
+               
                 if (moveH != 0)
                     condition = 2;
                 else
@@ -93,6 +123,12 @@ public class Movement : MonoBehaviour
                 condition = 1;
                 rb.velocity = new Vector2(moveH * speed / 2, rb.velocity.y);
             }
+
+            if (moveH > 0 && faceRight == false)
+                flip();
+            if (moveH < 0 && faceRight == true)
+                flip();
+
 
             if (Input.GetKeyDown(KeyCode.C) && isGround)
             {
@@ -105,15 +141,8 @@ public class Movement : MonoBehaviour
         else
             condition = 3;
 
-
-
         if (lives == -1)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-
-
-        
-
-
 
 
 
@@ -291,10 +320,6 @@ public class Movement : MonoBehaviour
         //Assigns the UI sprite
         gameObject.GetComponent<SpriteRenderer>().sprite = fromTex;
     }
-
-
-
-
 
 
 }

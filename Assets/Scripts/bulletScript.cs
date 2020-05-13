@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System.Linq;
 
 public class bulletScript : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class bulletScript : MonoBehaviour
     private Transform player;
     private Vector2 target;
 
-    string[] line;
+    string line;
     
     private int bulletC;
     private int bPos = 1;
@@ -23,28 +24,23 @@ public class bulletScript : MonoBehaviour
     string[] filePaths;
 
 
-    // Start is called before the first frame update
     void Start()
     {
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
         target = new Vector2(player.position.x, transform.position.y);
-       
-
-        line = File.ReadAllLines("TestMap.txt");
-
-        string[] size = line[0].Split();
-         row = int.Parse(size[0]);
-        bulletC  = int.Parse(line[row + 9].Split(':')[1]);
-        
 
 
-     
+        line = File.ReadLines("TestMap.txt").Skip(0).First();
+
+        string[] size = line.Split();
+        int row = int.Parse(size[0]);
+
+        line = File.ReadLines("TestMap.txt").Skip(row + 9).First();
+        bulletC = int.Parse(line.Split(':')[1]);
 
 
     }
-
-
 
 
     private void Update()
@@ -52,7 +48,6 @@ public class bulletScript : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
         if (transform.position.x == target.x && transform.position.y == target.y)
         {
-            //ImageLoader("Bullet/Explode",1);
             Destroy(gameObject, 1);
         }
 
@@ -78,7 +73,7 @@ public class bulletScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-           // ImageLoader("Bullet/Explode", 1);
+
             Destroy(gameObject, 1);
         }
     }
@@ -86,29 +81,19 @@ public class bulletScript : MonoBehaviour
 
     void ImageLoader(string path, int Pos)
     {
-        //Create an array of file paths from which to choose
-        folderPath = Application.streamingAssetsPath;  //Get path of folder
-        filePaths = Directory.GetFiles(folderPath, path + (Pos).ToString() + ".png"); // Get all files of type .png in this folder
 
-        //Converts desired path into byte array
+        folderPath = Application.streamingAssetsPath; 
+        filePaths = Directory.GetFiles(folderPath, path + (Pos).ToString() + ".png");
+
         byte[] pngBytes = System.IO.File.ReadAllBytes(filePaths[0]);
 
-        //Creates texture and loads byte array data to create image
-        Texture2D tex = new Texture2D(1, 1);
+        Texture2D tex = new Texture2D(2, 2);
         tex.LoadImage(pngBytes);
 
-        //Creates a new Sprite based on the Texture2D
         Sprite fromTex = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100.0f);
 
-        //Assigns the UI sprite
         gameObject.GetComponent<SpriteRenderer>().sprite = fromTex;
     }
-
-
-     
-
-
-
 
 
 }
