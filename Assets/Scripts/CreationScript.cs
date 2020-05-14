@@ -65,8 +65,14 @@ public class CreationScript : MonoBehaviour
                     case '1':
                         obj = 0;
                         break;
+                    case '2':
+                        obj = 1;
+                        break;
                     case '3':
                         obj = 2;
+                        break;
+                    case '4':
+                        obj = 3;
                         break;
                     case '5':
                         obj = 4;
@@ -96,7 +102,7 @@ public class CreationScript : MonoBehaviour
                     Instantiate(objects[13], new Vector2(j * step, (9 - i) * step), Quaternion.identity);
                 }
                 else if(obj == 14)
-                    Instantiate(objects[obj], new Vector2(j * step, (10 - i) * step -step/2), Quaternion.identity);
+                    Instantiate(objects[obj], new Vector2(j * step, (10 - i) * step), Quaternion.identity);
                 obj = -1;
 
             }

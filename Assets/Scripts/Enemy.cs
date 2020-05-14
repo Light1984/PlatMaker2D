@@ -112,7 +112,7 @@ public class Enemy : MonoBehaviour
 
 
 
-            ImageLoader("Enemy1/Fly", mPos);
+            ImageLoader("Fly/Fly", mPos);
             if (hg < 5)
                 hg++;
             else if (hg == 5 && mPos < moveC)
@@ -131,7 +131,7 @@ public class Enemy : MonoBehaviour
             
             if (timeBtwShots <= 2 && efireC !=0 || efireC == 0)
             {
-                ImageLoader("Enemy2/Fire", mPos);
+                ImageLoader("Fire/Fire", mPos);
                 if (hg < 5)
                     hg++;
                 else if (hg == 5 && mPos < fireC)
@@ -147,7 +147,7 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                ImageLoader("Enemy2/eFire", ePos);
+                ImageLoader("Fire/eFire", ePos);
                 if (hg < 5)
                     hg++;
                 else if (hg == 5 && ePos < efireC)
