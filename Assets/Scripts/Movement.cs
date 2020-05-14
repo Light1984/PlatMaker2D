@@ -8,8 +8,8 @@ using System.Linq;
 public class Movement : MonoBehaviour
 {
 
-    private float jumpForce;
-    private float speed;
+    public float jumpForce;
+    public float speed;
     private Rigidbody2D rb;
     private bool faceRight = true;
     private bool godeMode = false;
@@ -23,7 +23,7 @@ public class Movement : MonoBehaviour
 
 
     public int nuts = 0;
-    private int nutsMax;
+    public int nutsMax;
     public int lives;
 
     string folderPath;
@@ -38,21 +38,21 @@ public class Movement : MonoBehaviour
     private int rPos = 1;
     private int dPos = 1;
     private int condition = 0;
-    private int jumpC;
-    private int idleC;
-    private int runC;
-    private int damC;
-    private string jumpSD;
-    private int idealJ;
-    private string runSD;
-    private int idealR;
+    public int jumpC;
+    public int idleC;
+    public int runC;
+    public int damC;
+    //private string jumpSD;
+    public int idealJ;
+    //private string runSD;
+    public int idealR;
 
     private AudioClip jumpSound;
     private AudioClip colSound;
     private AudioClip defeatSound;
 
     private string attack;
-    private int typeAttack;
+    public int typeAttack;
     public GameObject projectile;
 
     private string jumpPath = "/Sounds/Jump.wav";
@@ -94,7 +94,7 @@ public class Movement : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
 
-        line = File.ReadLines("TestMap.txt").Skip(0).First();
+       /* line = File.ReadLines("TestMap.txt").Skip(0).First();
 
         string[] size = line.Split();
         int row = int.Parse(size[0]);
@@ -121,13 +121,12 @@ public class Movement : MonoBehaviour
 
 
         attack = (File.ReadLines("TestMap.txt").Skip(row + 15).First().Split(':')[1]);
-        typeAttack = int.Parse(attack.Split(',')[0]);
+        typeAttack = int.Parse(attack.Split(',')[0]); */
         
 
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         isGround = Physics2D.OverlapCircle(groundCheck.position, groundRad, whatIsGround);
@@ -179,10 +178,6 @@ public class Movement : MonoBehaviour
         }
         else
             condition = 3;
-
-        if (lives == -1)
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-
 
 
     }

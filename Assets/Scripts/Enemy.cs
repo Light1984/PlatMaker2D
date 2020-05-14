@@ -35,12 +35,18 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        speed = FindObjectOfType<CreationScript>().speed;
+        fireC = FindObjectOfType<CreationScript>().fire;
+        efireC = FindObjectOfType<CreationScript>().efire;
+        moveC = FindObjectOfType<CreationScript>().fly;
+        startBtwShots = FindObjectOfType<CreationScript>().period;
+
 
         dirY = transform.position.y;
         dirX = transform.position.x;
         timeBtwShots = startBtwShots;
 
-
+        /*
         line = File.ReadLines("TestMap.txt").Skip(0).First();
         string[] size = line.Split();
         int row = int.Parse(size[0]);
@@ -65,7 +71,7 @@ public class Enemy : MonoBehaviour
         speed = float.Parse(File.ReadLines("TestMap.txt").Skip(row + 12).First().Split(':')[1]);
         startBtwShots = int.Parse(File.ReadLines("TestMap.txt").Skip(row + 13).First().Split(':')[1]);
 
-
+    */
 
     }
     private void Update()

@@ -9,19 +9,22 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
+    public GameObject OverMenuUI;
     public AudioMixer audioMixer;
 
     private float timeStart;
     public Text textBox;
+    public Text healthBox;
+    public Text keysBox;
+    public float minutes = 0;
     private bool timeActive = true;
 
     // Update is called once per frame
     void Update()
     {
-        
-        textBox.text = (timeStart).ToString("F2");
 
-        if(timeActive)
+
+        if (timeActive)
           timeStart += Time.deltaTime;
         
 
@@ -34,10 +37,55 @@ public class PauseMenu : MonoBehaviour
 
             
         }
+
+
+        healthBox.text = "HEALTH: " + FindObjectOfType<Movement>().lives;
+        keysBox.text = "KEYS: " + FindObjectOfType<Movement>().nuts;
+
     }
 
+    private void FixedUpdate()
+    {
 
-   public void Resume()
+        if (minutes >= 10)
+        {
+            if (timeStart >= 10)
+                textBox.text = minutes.ToString() + ":" + (timeStart).ToString("F2");
+            else
+                textBox.text = minutes.ToString() + ":0" + (timeStart).ToString("F2");
+        }
+        else
+        {
+
+            if (timeStart >= 10)
+                textBox.text = "0" + minutes.ToString() + ":" + (timeStart).ToString("F2");
+            else
+                textBox.text = "0" + minutes.ToString() + ":0" + (timeStart).ToString("F2");
+
+        }
+
+
+        if (timeStart >= 60f)
+        {
+            timeStart = 0;
+            minutes++;
+        }
+    }
+
+    public void EndGame()
+    {
+        Debug.Log("GameOver");
+        OverMenuUI.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void Restart()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void Resume()
 
     {
         pauseMenuUI.SetActive(false);

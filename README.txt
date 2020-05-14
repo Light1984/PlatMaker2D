@@ -49,7 +49,7 @@ d = Коробка (для создания препятствия)
 https://online-audio-converter.com/ru/
 
 Открываем содержимое файла, далее:
-Resources -> Data -> StreamingAssets
+Contents -> Resources -> Data -> StreamingAssets
 
 Изображение Заднего фона и финиша загружаем, не заходя в другие папки и называем соответственно "Finish.png" и "Back.png"
 

@@ -13,13 +13,13 @@ public class bulletScript : MonoBehaviour
     private Transform player;
     private Vector2 target;
 
-    string line;
+   // string line;
     
     private int bulletC;
     private int bPos = 1;
     private int hg;
     private float Dir;
-    int row;
+   // int row;
 
     string folderPath;
     string[] filePaths;
@@ -33,27 +33,37 @@ public class bulletScript : MonoBehaviour
     void Start()
     {
 
+
         player = GameObject.FindGameObjectWithTag("Player").transform;
         target = new Vector2(player.position.x, transform.position.y);
 
 
-        line = File.ReadLines("TestMap.txt").Skip(0).First();
+        /* line = File.ReadLines("TestMap.txt").Skip(0).First();
 
-        string[] size = line.Split();
-        int row = int.Parse(size[0]);
+         string[] size = line.Split();
+         int row = int.Parse(size[0]);
 
-        line = File.ReadLines("TestMap.txt").Skip(row + 9).First();
-        bulletC = int.Parse(line.Split(':')[1]);
-
+         line = File.ReadLines("TestMap.txt").Skip(row + 9).First();
+         bulletC = int.Parse(line.Split(':')[1]);
+         */
         if (gameObject.tag == "Bullet")
-            speed = float.Parse(File.ReadLines("TestMap.txt").Skip(row + 14).First().Split(':')[1]);
+        {
+            speed = FindObjectOfType<CreationScript>().speedBullet2;
+        }
         else
         {
-            line = (File.ReadLines("TestMap.txt").Skip(row + 15).First().Split(':')[1]);
-            speed = int.Parse(line.Split(',')[1]);
-
+            speed = FindObjectOfType<CreationScript>().speedBullet1;
             rb.velocity = transform.right * speed;
         }
+
+        bulletC = FindObjectOfType<CreationScript>().bullet;
+        // speed = float.Parse(File.ReadLines("TestMap.txt").Skip(row + 14).First().Split(':')[1]);
+
+        // line = (File.ReadLines("TestMap.txt").Skip(row + 15).First().Split(':')[1]);
+        //speed = int.Parse(line.Split(',')[1]); 
+
+
+
 
 
     }

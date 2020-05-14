@@ -32,8 +32,10 @@ public class BackSound : MonoBehaviour
     private void PlayAudioFile()
     {
         audioSource.clip = audioClip;
+        audioSource.volume = 0.25f;
         audioSource.Play();
         audioSource.loop = true;
+
     }
 
     private WWW GetAudioFromFile(string path, string filename)
