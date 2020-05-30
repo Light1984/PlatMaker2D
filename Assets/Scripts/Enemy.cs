@@ -8,15 +8,15 @@ public class Enemy : MonoBehaviour
 {
     float dirY;
     float dirX;
-    private float speed;
+    private float speed = 60;
     public bool up = true;
 
-    public float timeBtwShots;
+    public float timeBtwShots = 5;
     private float startBtwShots;
     public GameObject projectile;
 
-    string line;
-    private int moveC;
+
+    private int moveC = 4;
     private int mPos = 1;
     private int hg = 0;
     private int ePos = 1;
@@ -24,9 +24,8 @@ public class Enemy : MonoBehaviour
     string folderPath;
     string[] filePaths;
 
-    private string fire;
-    private int fireC;
-    private int efireC;
+    private int fireC = 4;
+    private int efireC = 0;
     private bool faceR = true;
 
 
@@ -35,10 +34,19 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        if(FindObjectOfType<CreationScript>().speed > 0)
         speed = FindObjectOfType<CreationScript>().speed;
+
+        if(FindObjectOfType<CreationScript>().fire > 0)
         fireC = FindObjectOfType<CreationScript>().fire;
+
+        if(FindObjectOfType<CreationScript>().efire > -1)
         efireC = FindObjectOfType<CreationScript>().efire;
+
+        if(FindObjectOfType<CreationScript>().fly > 0)
         moveC = FindObjectOfType<CreationScript>().fly;
+
+        if(FindObjectOfType<CreationScript>().period > 0)
         startBtwShots = FindObjectOfType<CreationScript>().period;
 
 
@@ -46,32 +54,7 @@ public class Enemy : MonoBehaviour
         dirX = transform.position.x;
         timeBtwShots = startBtwShots;
 
-        /*
-        line = File.ReadLines("TestMap.txt").Skip(0).First();
-        string[] size = line.Split();
-        int row = int.Parse(size[0]);
-
        
-
-
-        if (gameObject.tag == "Enemy")
-        {
-            line = File.ReadLines("TestMap.txt").Skip(row + 7).First();
-            moveC = int.Parse(line.Split(':')[1]);
-        }
-        else
-        {
-            line = File.ReadLines("TestMap.txt").Skip(row + 8).First();
-            fire = line.Split(':')[1];
-            fireC = int.Parse(fire.Split(',')[0]);
-            efireC = int.Parse(fire.Split(',')[1]);
-
-        }
-
-        speed = float.Parse(File.ReadLines("TestMap.txt").Skip(row + 12).First().Split(':')[1]);
-        startBtwShots = int.Parse(File.ReadLines("TestMap.txt").Skip(row + 13).First().Split(':')[1]);
-
-    */
 
     }
     private void Update()

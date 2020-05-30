@@ -37,7 +37,9 @@ public class PlatScript : MonoBehaviour
     private void FixedUpdate()
     {
 
-        if (Physics2D.OverlapCircle(CheckL.position, groundRad, whatIsGround) || Physics2D.OverlapCircle(CheckR.position, groundRad, whatIsGround))
-            right = !right;
+        if (Physics2D.OverlapCircle(CheckL.position, groundRad, whatIsGround))
+            right = true;
+        else if (Physics2D.OverlapCircle(CheckR.position, groundRad, whatIsGround))
+            right = false;
     }
 }

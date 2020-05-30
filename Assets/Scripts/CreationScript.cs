@@ -45,78 +45,110 @@ public class CreationScript : MonoBehaviour
         ImageLoader("Finish.png", 11);
 
         textFile = File.ReadAllLines("TestMap.txt");
+        int row = 0; int col = 0;
 
+        if (textFile[0].Contains(' '))
+        {
+            string[] size = textFile[0].Split();
+            row = int.Parse(size[0]);
+            col = int.Parse(size[1]);
+        }
+        else if (textFile[0].Contains(':'))
+        {
+            row = -1;
+            col = -1;
+        }
 
-        string[] size = textFile[0].Split();
-        int row = int.Parse(size[0]);
-        int col = int.Parse(size[1]);
+   
+      
 
 
          length = textFile.Length;
 
 
 
-
-        char[][] field = new char[row][];
-        for (int i = 0; i < row; ++i)
+        if (row > 0)
         {
-            field[i] = new char[col];
-            field[i] = textFile[i+1].ToCharArray();
-
-        }
-
-        int obj = -1;
-        for (int i = 0; i < row; ++i)
-        {
-            for (int j = 0; j < col; ++j)
+            char[][] field = new char[row][];
+            for (int i = 0; i < row; ++i)
             {
-                switch (field[i][j])
-                {
-                    case '1':
-                        obj = 0;
-                        break;
-                    case '2':
-                        obj = 1;
-                        break;
-                    case '3':
-                        obj = 2;
-                        break;
-                    case '4':
-                        obj = 3;
-                        break;
-                    case '5':
-                        obj = 4;
-                        break;
-                    case '6':
-                        obj = 5;
-                        break;
-                    case '7':
-                        obj = 6;
-                        break;
-                    case 'b':
-                        obj = 10;
-                        break;
-                    case 'c':
-                        obj = 11;
-                        break;
-                    case 'd':
-                        obj = 14;
-                        break;
-
-                }
-                if (obj > 0 && obj <14)
-                    Instantiate(objects[obj], new Vector2(j * step, (9 - i) * step), Quaternion.identity);
-                else if (obj == 0)
-                {
-                    Instantiate(objects[obj], new Vector2(j * step, (9 - i) * step), Quaternion.identity);
-                    Instantiate(objects[13], new Vector2(j * step, (9 - i) * step), Quaternion.identity);
-                }
-                else if(obj == 14)
-                    Instantiate(objects[obj], new Vector2(j * step, (10 - i) * step), Quaternion.identity);
-                obj = -1;
+                field[i] = new char[col];
+                field[i] = textFile[i + 1].ToCharArray();
 
             }
+
+            int obj = -1;
+            for (int i = 0; i < row; ++i)
+            {
+                for (int j = 0; j < col; ++j)
+                {
+                    switch (field[i][j])
+                    {
+                        case '1':
+                            obj = 0;
+                            break;
+                        case '2':
+                            obj = 1;
+                            break;
+                        case '3':
+                            obj = 2;
+                            break;
+                        case '4':
+                            obj = 3;
+                            break;
+                        case '5':
+                            obj = 4;
+                            break;
+                        case '6':
+                            obj = 5;
+                            break;
+                        case '7':
+                            obj = 6;
+                            break;
+                        case 'b':
+                            obj = 10;
+                            break;
+                        case 'c':
+                            obj = 11;
+                            break;
+                        case 'd':
+                            obj = 14;
+                            break;
+
+                    }
+                    if (obj > 0 && obj < 14)
+                        Instantiate(objects[obj], new Vector2(j * step, (9 - i) * step), Quaternion.identity);
+                    else if (obj == 0)
+                    {
+                        Instantiate(objects[obj], new Vector2(j * step, (9 - i) * step), Quaternion.identity);
+                        Instantiate(objects[13], new Vector2(j * step, (9 - i) * step), Quaternion.identity);
+                    }
+                    else if (obj == 14)
+                        Instantiate(objects[obj], new Vector2(j * step, (10 - i) * step), Quaternion.identity);
+                    obj = -1;
+
+                }
+            }
         }
+        else
+        {
+            Instantiate(objects[2], new Vector2(0, 0), Quaternion.identity);
+            Instantiate(objects[2], new Vector2(step, 0), Quaternion.identity);
+            Instantiate(objects[2], new Vector2(0, step), Quaternion.identity);
+            Instantiate(objects[2], new Vector2(step*2, 0), Quaternion.identity);
+            Instantiate(objects[2], new Vector2(0, step*2), Quaternion.identity);
+            Instantiate(objects[2], new Vector2(step*2, step), Quaternion.identity);
+            Instantiate(objects[2], new Vector2(step, step*2), Quaternion.identity);
+            Instantiate(objects[2], new Vector2(step*2, step*2), Quaternion.identity);
+            Instantiate(objects[0], new Vector2(step, step), Quaternion.identity);
+         
+
+
+
+        }
+
+     
+
 
         Instantiate(objects[7], new Vector2(0, -step * 7), Quaternion.identity);
         Instantiate(objects[12], new Vector2(0, 0), Quaternion.identity);
@@ -126,62 +158,75 @@ public class CreationScript : MonoBehaviour
 
         for (int i = row + 1; i < length; ++i)
         {
+
             before = textFile[i].Split(':')[0];
-            switch (before)
-            {
-                case "Health":
-                    FindObjectOfType<Movement>().lives = int.Parse(textFile[i].Split(':')[1]);
-                    break;
-                case "Keys":
-                    FindObjectOfType<Movement>().nutsMax = int.Parse(textFile[i].Split(':')[1]);
-                    break;
-                case "spriteStay":
-                    FindObjectOfType<Movement>().idleC = int.Parse(textFile[i].Split(':')[1]);
-                    break;
+
+            
+                switch (before)
+                {
+                    case "Health":
+                        FindObjectOfType<Movement>().hel = int.Parse(textFile[i].Split(':')[1]);
+                        break;
+                    case "Keys":
+                    
+                        FindObjectOfType<Movement>().nutsMax = int.Parse(textFile[i].Split(':')[1]);
+                        break;
+                    case "spriteStay":
+                    
+                        FindObjectOfType<Movement>().pidleC = int.Parse(textFile[i].Split(':')[1]);
+                        break;
                 case "spriteJump":
-                    FindObjectOfType<Movement>().jumpC = int.Parse(textFile[i].Split(':')[1].Split(',')[0]);
-                    FindObjectOfType<Movement>().idealJ = int.Parse(textFile[i].Split(':')[1].Split(',')[1]);
-                    break;
-                case "spriteSpeed":
-                    FindObjectOfType<Movement>().runC = int.Parse(textFile[i].Split(':')[1].Split(',')[0]);
-                    FindObjectOfType<Movement>().idealR = int.Parse(textFile[i].Split(':')[1].Split(',')[1]);
-                    break;
-                case "spriteHit":
-                    FindObjectOfType<Movement>().damC = int.Parse(textFile[i].Split(':')[1]);
-                    break;
-                case "Speed":
-                    FindObjectOfType<Movement>().speed = int.Parse(textFile[i].Split(':')[1]);
-                    break;
-                case "jumpForce":
-                    FindObjectOfType<Movement>().jumpForce = int.Parse(textFile[i].Split(':')[1]);
-                    break;
-                case "heroAttack":
-                    FindObjectOfType<Movement>().typeAttack = int.Parse(textFile[i].Split(':')[1].Split(',')[0]);
-                    speedBullet1 = int.Parse(textFile[i].Split(':')[1].Split(',')[1]);
-                    break;
-                case "spriteFly":
-                    fly = int.Parse(textFile[i].Split(':')[1]);
-                    break;
+                        FindObjectOfType<Movement>().pjumpC = int.Parse(textFile[i].Split(':')[1].Split(',')[0]);
+                        FindObjectOfType<Movement>().idealJ = int.Parse(textFile[i].Split(':')[1].Split(',')[1]);
+                        break;
+                    case "spriteRun":
+                 
+                        FindObjectOfType<Movement>().prunC = int.Parse(textFile[i].Split(':')[1].Split(',')[0]);
+                        FindObjectOfType<Movement>().idealR = int.Parse(textFile[i].Split(':')[1].Split(',')[1]);
+                    
+                        break;
+                    case "spriteHit":
+
+                        FindObjectOfType<Movement>().pdamC = int.Parse(textFile[i].Split(':')[1]);
+                        break;
+                    case "Speed":
+                    
+                        FindObjectOfType<Movement>().speed = int.Parse(textFile[i].Split(':')[1]);
+                        break;
+                    case "jumpForce":
+                   
+                        FindObjectOfType<Movement>().jumpForce = int.Parse(textFile[i].Split(':')[1]);
+                        break;
+                    case "heroAttack":
+                        FindObjectOfType<Movement>().typeAttack = int.Parse(textFile[i].Split(':')[1].Split(',')[0]);
+                        speedBullet1 = int.Parse(textFile[i].Split(':')[1].Split(',')[1]);
+                    
+                        break;
+                    case "spriteFly":
+                
+                        fly = int.Parse(textFile[i].Split(':')[1]);
+                        break;
                 case "enemySpeed":
-                    speed = int.Parse(textFile[i].Split(':')[1]);
-                    break;
-                case "bulletPeriod":
-                    period = int.Parse(textFile[i].Split(':')[1]);
-                    break;
-                case "spriteBullet":
-                   bullet = int.Parse(textFile[i].Split(':')[1]);
-                    break;
-                case "bulletSpeed":
-                    speedBullet2 = int.Parse(textFile[i].Split(':')[1]);
-                    break;
-                case "spriteFire/eFire":
-                    fire = int.Parse(textFile[i].Split(':')[1].Split(',')[0]);
-                    efire = int.Parse(textFile[i].Split(':')[1].Split(',')[1]);
-                    break;
+                        speed = int.Parse(textFile[i].Split(':')[1]);
+                        break;
+                    case "bulletPeriod":
+                        period = int.Parse(textFile[i].Split(':')[1]);
+                        break;
+                    case "spriteBullet":
+                        bullet = int.Parse(textFile[i].Split(':')[1]);
+                        break;
+                    case "bulletSpeed":
+                        speedBullet2 = int.Parse(textFile[i].Split(':')[1]);
+                        break;
+                    case "spriteFire/eFire":
+                        fire = int.Parse(textFile[i].Split(':')[1].Split(',')[0]);
+                        efire = int.Parse(textFile[i].Split(':')[1].Split(',')[1]);
+                        break;
 
 
 
 
+                
             }
 
 

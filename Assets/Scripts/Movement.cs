@@ -8,8 +8,8 @@ using System.Linq;
 public class Movement : MonoBehaviour
 {
 
-    public float jumpForce;
-    public float speed;
+    public float jumpForce = 20000;
+    public float speed = 500;
     private Rigidbody2D rb;
     private bool faceRight = true;
     private bool godeMode = false;
@@ -23,36 +23,40 @@ public class Movement : MonoBehaviour
 
 
     public int nuts = 0;
-    public int nutsMax;
-    public int lives;
+    public int nutsMax = 0;
+    private int lives = 3;
+    public int hel;
 
     string folderPath;
     string[] filePaths;
 
 
 
-    string line;
+
     private int hg = 0;
     private int jPos = 1;
     private int iPos = 1;
     private int rPos = 1;
     private int dPos = 1;
     private int condition = 0;
-    public int jumpC;
-    public int idleC;
-    public int runC;
-    public int damC;
+    public int pjumpC;
+    public int pidleC;
+    public int prunC;
+    public int pdamC;
+    private int jumpC = 10;
+    private int idleC = 3;
+    private int runC = 8;
+    private int damC = 1;
     //private string jumpSD;
-    public int idealJ;
+    public int idealJ = 2;
     //private string runSD;
-    public int idealR;
+    public int idealR = 0;
 
     private AudioClip jumpSound;
     private AudioClip colSound;
     private AudioClip defeatSound;
 
-    private string attack;
-    public int typeAttack;
+    public int typeAttack = 1;
     public GameObject projectile;
 
     private string jumpPath = "/Sounds/Jump.wav";
@@ -69,6 +73,28 @@ public class Movement : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
+
+        if(hel > 0)
+           lives = hel;
+
+        hel = lives;
+
+
+        if (pjumpC > 0)
+            jumpC = pjumpC;
+
+        if (pidleC > 0)
+            idleC = pidleC;
+
+        if (prunC > 0)
+            runC = prunC;
+
+        if (pdamC > 0)
+            damC = pdamC;
+
+        
+
+
         source = GetComponent<AudioSource>();
         url = "file://" + Application.streamingAssetsPath + jumpPath;
         using (var www = new WWW(url))
@@ -94,35 +120,7 @@ public class Movement : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
 
-       /* line = File.ReadLines("TestMap.txt").Skip(0).First();
-
-        string[] size = line.Split();
-        int row = int.Parse(size[0]);
-
-        lives = int.Parse(File.ReadLines("TestMap.txt").Skip(row + 1).First().Split(':')[1]);
-        nutsMax = int.Parse(File.ReadLines("TestMap.txt").Skip(row + 2).First().Split(':')[1]);
-        idleC = int.Parse(File.ReadLines("TestMap.txt").Skip(row + 3).First().Split(':')[1]);
-
-        jumpSD = (File.ReadLines("TestMap.txt").Skip(row + 4).First().Split(':')[1]);
-        jumpC = int.Parse(jumpSD.Split(',')[0]);
-        idealJ = int.Parse(jumpSD.Split(',')[1]);
-
-
-        runSD = (File.ReadLines("TestMap.txt").Skip(row + 5).First().Split(':')[1]);
-        runC = int.Parse(runSD.Split(',')[0]);
-        idealR = int.Parse(runSD.Split(',')[1]);
-
-
-
-        damC = int.Parse(File.ReadLines("TestMap.txt").Skip(row + 6).First().Split(':')[1]);
-        speed = float.Parse(File.ReadLines("TestMap.txt").Skip(row + 10).First().Split(':')[1]);
-       jumpForce = float.Parse(File.ReadLines("TestMap.txt").Skip(row + 11).First().Split(':')[1]);
-
-
-
-        attack = (File.ReadLines("TestMap.txt").Skip(row + 15).First().Split(':')[1]);
-        typeAttack = int.Parse(attack.Split(',')[0]); */
-        
+    
 
 
     }

@@ -9,7 +9,7 @@ public class PlayerCol : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (moveP.lives == 0)
+        if (moveP.hel == 0)
         {
             moveP.enabled = false;
             FindObjectOfType<PauseMenu>().EndGame();

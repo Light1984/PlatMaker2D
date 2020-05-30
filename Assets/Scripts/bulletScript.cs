@@ -8,18 +8,18 @@ using System.Linq;
 public class bulletScript : MonoBehaviour
 {
 
-    private float speed;
+    private float speed = 200;
 
     private Transform player;
     private Vector2 target;
 
-   // string line;
+
     
-    private int bulletC;
+    private int bulletC = 1;
     private int bPos = 1;
     private int hg;
     private float Dir;
-   // int row;
+
 
     string folderPath;
     string[] filePaths;
@@ -38,29 +38,21 @@ public class bulletScript : MonoBehaviour
         target = new Vector2(player.position.x, transform.position.y);
 
 
-        /* line = File.ReadLines("TestMap.txt").Skip(0).First();
 
-         string[] size = line.Split();
-         int row = int.Parse(size[0]);
-
-         line = File.ReadLines("TestMap.txt").Skip(row + 9).First();
-         bulletC = int.Parse(line.Split(':')[1]);
-         */
-        if (gameObject.tag == "Bullet")
+       
+        if (gameObject.tag == "Bullet" && FindObjectOfType<CreationScript>().speedBullet2 > 0)
         {
             speed = FindObjectOfType<CreationScript>().speedBullet2;
         }
-        else
+        else if (FindObjectOfType<CreationScript>().speedBullet1 > 0)
         {
             speed = FindObjectOfType<CreationScript>().speedBullet1;
             rb.velocity = transform.right * speed;
         }
 
+        if(FindObjectOfType<CreationScript>().bullet > 0)
         bulletC = FindObjectOfType<CreationScript>().bullet;
-        // speed = float.Parse(File.ReadLines("TestMap.txt").Skip(row + 14).First().Split(':')[1]);
-
-        // line = (File.ReadLines("TestMap.txt").Skip(row + 15).First().Split(':')[1]);
-        //speed = int.Parse(line.Split(',')[1]); 
+       
 
 
 

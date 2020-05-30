@@ -39,7 +39,7 @@ public class PauseMenu : MonoBehaviour
         }
 
 
-        healthBox.text = "HEALTH: " + FindObjectOfType<Movement>().lives;
+        healthBox.text = "HEALTH: " + FindObjectOfType<Movement>().hel;
         keysBox.text = "KEYS: " + FindObjectOfType<Movement>().nuts;
 
     }
